@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://pixeratools.com/sitemap.xml

@@ -1,0 +1,29 @@
+# Pixera – Stylish Screenshots, Instantly
+> Pixera transforms ordinary screenshots into beautifully framed, share-ready visuals. Automatically.
+
+Pixera is a macOS app that instantly enhances your screenshots with elegant backgrounds, smooth shadows, and customizable frames. Whether you're a designer, developer, or creator, Pixera makes your captures presentation-ready with no extra effort.
+
+## Key Use Cases
+- Enhance tweet screenshots for social sharing
+- Create professional visuals for UI mockups
+- Beautify code snippets or app previews
+- Add subtle gradients or blur for clean framing
+- Save styled screenshots for product marketing
+
+## Core Features
+- Automatic blurred background from screenshot
+- Mesh and linear gradient options
+- Customizable corner radius and shadows
+- Colored insets based on content
+- Control over background size and spacing
+- One-click export of styled images
+
+## Pages
+- [https://pixeratools.com](https://pixeratool.com) · Homepage – Overview, feature list, and pricing
+- [https://pixeratools.com#features](https://pixeratool.com#features) · Features – Backgrounds, shadows, gradients, insets
+- [https://pixeratools.com#pricing](https://pixeratool.com#pricing) · Pricing – Pixera Premium details
+- [https://pixeratools.com#testimonials](https://pixeratool.com#testimonials) · Testimonials – What users are saying
+- [https://pixeratools.com#contact](https://pixeratool.com#contact) · Contact – Support and inquiries
+
+## Author
+- Developed by Parth Antala – Building elegant tools for creators

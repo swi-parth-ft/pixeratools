@@ -1,0 +1,21 @@
+{
+  "name": "Pixera",
+  "short_name": "Pixera",
+  "description": "Capture polished screenshots instantly with gradients, shadows, blur, annotations, and redaction in Pixera for macOS.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

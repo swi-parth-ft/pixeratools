@@ -1,6 +1,46 @@
 (function () {
   var seen = {};
   var initialized = false;
+  var metadataStabilized = false;
+  var PAGE_METADATA = {
+    "/": {
+      title: "Mac Screenshot Editor for Styled Screenshots | Pixera",
+      description: "Pixera is a Mac screenshot editor for styling, annotating, and redacting screenshots with gradients, blur backgrounds, shadows, and export-ready layouts.",
+      keywords: "mac screenshot editor, screenshot annotation tool mac, redact screenshots mac, screenshot backgrounds mac",
+      canonical: "https://pixeratools.com/"
+    },
+    "/mac-screenshot-editor/": {
+      title: "Mac Screenshot Editor for Polished Images | Pixera",
+      description: "Pixera is a Mac screenshot editor for polished screenshots with gradients, blur backgrounds, annotations, privacy redaction, and export-ready layouts.",
+      keywords: "mac screenshot editor, screenshot editor mac, style screenshots mac, annotate screenshots mac, redact screenshots mac",
+      canonical: "https://pixeratools.com/mac-screenshot-editor/"
+    },
+    "/screenshot-annotation-tool-mac/": {
+      title: "Screenshot Annotation Tool for Mac | Pixera",
+      description: "Use Pixera as a screenshot annotation tool for Mac to add arrows, labels, highlights, and clear product callouts without leaving your screenshot workflow.",
+      keywords: "screenshot annotation tool mac, annotate screenshots on mac, screenshot markup tool, arrows on screenshots mac",
+      canonical: "https://pixeratools.com/screenshot-annotation-tool-mac/"
+    },
+    "/redact-screenshots-mac/": {
+      title: "Redact Screenshots on Mac Privately | Pixera",
+      description: "Redact screenshots on Mac with Pixera before sharing emails, API keys, customer names, and other sensitive details in docs, posts, and support replies.",
+      keywords: "redact screenshots mac, redact sensitive info from screenshots, blur private data screenshots, screenshot redaction mac",
+      canonical: "https://pixeratools.com/redact-screenshots-mac/"
+    },
+    "/screenshot-backgrounds-mac/": {
+      title: "Beautiful Screenshot Backgrounds on Mac | Pixera",
+      description: "Create beautiful screenshot backgrounds on Mac with Pixera using blur, gradients, adaptive insets, and polished framing for social posts, docs, and product marketing.",
+      keywords: "screenshot backgrounds mac, blur screenshot background, gradient screenshot backgrounds, style screenshots mac",
+      canonical: "https://pixeratools.com/screenshot-backgrounds-mac/"
+    }
+  };
+  var GUIDE_PATHS = {
+    "/mac-screenshot-editor/": "mac-screenshot-editor",
+    "/screenshot-annotation-tool-mac/": "screenshot-annotation-tool-mac",
+    "/redact-screenshots-mac/": "redact-screenshots-mac",
+    "/screenshot-backgrounds-mac/": "screenshot-backgrounds-mac"
+  };
+  var GUIDE_SECTION_HTML = '<section id="guides" aria-label="Pixera screenshot workflow guides" class="bg-white py-20 sm:py-24"><div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><div class="mx-auto max-w-3xl text-center"><p class="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-600">Workflow Guides</p><h2 class="mt-4 font-display text-3xl tracking-tight text-slate-900 sm:text-4xl">Choose the screenshot workflow you need to improve.</h2><p class="mt-5 text-lg text-slate-600">These focused guides target the highest-intent searches around Pixera: styling screenshots on Mac, adding annotations, hiding sensitive details, and creating better screenshot backgrounds.</p></div><div class="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4"><a class="rounded-3xl border border-slate-200 bg-slate-50 p-7 shadow-sm transition hover:-translate-y-1 hover:border-cyan-300 hover:shadow-lg" href="/mac-screenshot-editor/"><p class="text-sm font-semibold text-cyan-600">Core Guide</p><h3 class="mt-3 font-display text-2xl text-slate-900">Mac Screenshot Editor</h3><p class="mt-4 text-sm leading-7 text-slate-600">The main Pixera workflow for styling, annotation, privacy cleanup, and export-ready screenshot presentation.</p><span class="mt-5 inline-flex text-sm font-semibold text-slate-900">Open guide</span></a><a class="rounded-3xl border border-slate-200 bg-slate-50 p-7 shadow-sm transition hover:-translate-y-1 hover:border-cyan-300 hover:shadow-lg" href="/screenshot-annotation-tool-mac/"><p class="text-sm font-semibold text-cyan-600">Use Case</p><h3 class="mt-3 font-display text-2xl text-slate-900">Screenshot Annotation Tool</h3><p class="mt-4 text-sm leading-7 text-slate-600">Learn how to add arrows, labels, and clear product callouts without breaking the screenshot workflow.</p><span class="mt-5 inline-flex text-sm font-semibold text-slate-900">Open guide</span></a><a class="rounded-3xl border border-slate-200 bg-slate-50 p-7 shadow-sm transition hover:-translate-y-1 hover:border-cyan-300 hover:shadow-lg" href="/redact-screenshots-mac/"><p class="text-sm font-semibold text-cyan-600">Privacy</p><h3 class="mt-3 font-display text-2xl text-slate-900">Redact Screenshots on Mac</h3><p class="mt-4 text-sm leading-7 text-slate-600">See how Pixera protects emails, API keys, customer names, and other sensitive details before sharing screenshots.</p><span class="mt-5 inline-flex text-sm font-semibold text-slate-900">Open guide</span></a><a class="rounded-3xl border border-slate-200 bg-slate-50 p-7 shadow-sm transition hover:-translate-y-1 hover:border-cyan-300 hover:shadow-lg" href="/screenshot-backgrounds-mac/"><p class="text-sm font-semibold text-cyan-600">Styling</p><h3 class="mt-3 font-display text-2xl text-slate-900">Screenshot Backgrounds</h3><p class="mt-4 text-sm leading-7 text-slate-600">Use blur, gradients, and adaptive insets to make screenshots feel sharper in docs, social posts, and launch pages.</p><span class="mt-5 inline-flex text-sm font-semibold text-slate-900">Open guide</span></a></div></div></section>';
 
   function ensureGtag() {
     window.dataLayer = window.dataLayer || [];
@@ -14,6 +54,104 @@
   function track(eventName, params) {
     ensureGtag();
     window.gtag("event", eventName, params || {});
+  }
+
+  function normalizePath(pathname) {
+    if (!pathname) {
+      return "/";
+    }
+
+    return pathname.charAt(pathname.length - 1) === "/" ? pathname : pathname + "/";
+  }
+
+  function upsertMeta(selector, attribute, value) {
+    var element;
+
+    if (!value) {
+      return;
+    }
+
+    element = document.head.querySelector(selector);
+
+    if (!element) {
+      element = document.createElement("meta");
+
+      if (selector.indexOf('name="') !== -1) {
+        element.setAttribute("name", selector.split('name="')[1].split('"')[0]);
+      } else if (selector.indexOf('property="') !== -1) {
+        element.setAttribute("property", selector.split('property="')[1].split('"')[0]);
+      }
+
+      document.head.appendChild(element);
+    }
+
+    element.setAttribute(attribute, value);
+  }
+
+  function syncMetadata() {
+    var path = normalizePath(window.location.pathname);
+    var metadata = PAGE_METADATA[path];
+    var canonical;
+
+    if (!metadata) {
+      return;
+    }
+
+    document.title = metadata.title;
+    upsertMeta('meta[name="description"]', "content", metadata.description);
+    upsertMeta('meta[name="keywords"]', "content", metadata.keywords);
+    upsertMeta('meta[property="og:title"]', "content", metadata.title);
+    upsertMeta('meta[property="og:description"]', "content", metadata.description);
+    upsertMeta('meta[name="twitter:title"]', "content", metadata.title);
+    upsertMeta('meta[name="twitter:description"]', "content", metadata.description);
+
+    canonical = document.head.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.setAttribute("rel", "canonical");
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute("href", metadata.canonical);
+  }
+
+  function stabilizeMetadata() {
+    if (metadataStabilized) {
+      return;
+    }
+
+    metadataStabilized = true;
+    syncMetadata();
+    window.setTimeout(syncMetadata, 0);
+    window.setTimeout(syncMetadata, 150);
+    window.setTimeout(syncMetadata, 600);
+    window.setTimeout(syncMetadata, 1500);
+    window.setTimeout(syncMetadata, 3000);
+    window.addEventListener("load", syncMetadata);
+  }
+
+  function ensureGuideHub() {
+    var path = normalizePath(window.location.pathname);
+    var features;
+
+    if (path !== "/" || document.getElementById("guides")) {
+      return;
+    }
+
+    features = document.getElementById("features");
+    if (!features || !features.parentNode) {
+      return;
+    }
+
+    features.insertAdjacentHTML("beforebegin", GUIDE_SECTION_HTML);
+  }
+
+  function stabilizeHomepage() {
+    ensureGuideHub();
+    window.setTimeout(ensureGuideHub, 0);
+    window.setTimeout(ensureGuideHub, 150);
+    window.setTimeout(ensureGuideHub, 600);
+    window.setTimeout(ensureGuideHub, 1500);
+    window.setTimeout(ensureGuideHub, 3000);
   }
 
   function findSection(node) {
@@ -51,6 +189,14 @@
 
       track(eventName, builder(node));
     }, true);
+  }
+
+  function getPathname(node) {
+    try {
+      return normalizePath(new URL(node.href, window.location.origin).pathname);
+    } catch (error) {
+      return "";
+    }
   }
 
   function isHalfVisible(element) {
@@ -102,6 +248,8 @@
     }
 
     initialized = true;
+    stabilizeMetadata();
+    stabilizeHomepage();
 
     bindDelegatedClicks(function (node) {
       var href = getHref(node);
@@ -132,6 +280,17 @@
       return {
         cta_location: findSection(node),
         method: "email",
+        link_url: node.href
+      };
+    });
+
+    bindDelegatedClicks(function (node) {
+      return !!GUIDE_PATHS[getPathname(node)];
+    }, "open_guide", function (node) {
+      var guidePath = getPathname(node);
+      return {
+        cta_location: findSection(node),
+        guide_slug: GUIDE_PATHS[guidePath],
         link_url: node.href
       };
     });

@@ -22,6 +22,10 @@ Pixera is a macOS app that enhances screenshots with elegant backgrounds, smooth
 
 ## Pages
 - [https://pixeratools.com](https://pixeratools.com) · Homepage – Overview, feature list, and pricing
+- [https://pixeratools.com/mac-screenshot-editor/](https://pixeratools.com/mac-screenshot-editor/) · Mac Screenshot Editor – Overview of styling, annotation, redaction, and export workflows
+- [https://pixeratools.com/screenshot-annotation-tool-mac/](https://pixeratools.com/screenshot-annotation-tool-mac/) · Screenshot Annotation Tool – Arrows, labels, callouts, and tutorial workflows on Mac
+- [https://pixeratools.com/redact-screenshots-mac/](https://pixeratools.com/redact-screenshots-mac/) · Redact Screenshots on Mac – Privacy-safe screenshot sharing with on-device redaction
+- [https://pixeratools.com/screenshot-backgrounds-mac/](https://pixeratools.com/screenshot-backgrounds-mac/) · Screenshot Backgrounds – Blur, gradients, and polished screenshot presentation
 - [https://pixeratools.com#features](https://pixeratools.com#features) · Features – Backgrounds, shadows, gradients, insets
 - [https://pixeratools.com#pricing](https://pixeratools.com#pricing) · Pricing – Pixera Premium details
 - [https://pixeratools.com#testimonials](https://pixeratools.com#testimonials) · Testimonials – What users are saying

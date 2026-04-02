@@ -66,9 +66,15 @@
 }
 
 .guide-site-header {
-  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
-  background: rgba(255, 255, 255, 0.9) !important;
-  backdrop-filter: blur(12px);
+  border-bottom: 0;
+  background: #ffffff !important;
+  backdrop-filter: none;
+}
+
+.guide-site-header > div {
+  max-width: 80rem;
+  padding-top: 1.75rem;
+  padding-bottom: 1.25rem;
 }
 
 .guide-site-header nav a {
@@ -128,21 +134,12 @@
 
 .guide-hero {
   position: relative;
-  background:
-    radial-gradient(circle at 12% 12%, rgba(34, 211, 238, 0.12), transparent 24%),
-    radial-gradient(circle at 84% 18%, rgba(96, 165, 250, 0.12), transparent 22%),
-    linear-gradient(180deg, #ffffff 0%, #f8fafc 74%, #eef6ff 100%);
+  padding-top: 1.25rem;
+  background: transparent;
 }
 
 .guide-hero::before {
-  content: "";
-  position: absolute;
-  inset: auto -12% -16% 44%;
-  height: 22rem;
-  border-radius: 9999px;
-  background: radial-gradient(circle, rgba(34, 211, 238, 0.12), transparent 68%);
-  filter: blur(28px);
-  pointer-events: none;
+  display: none;
 }
 
 .guide-hero .text-white,
@@ -163,6 +160,51 @@
   color: #475569;
 }
 
+.guide-hero > .mx-auto {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center;
+  text-align: center;
+  max-width: 80rem;
+  gap: 0;
+}
+
+.guide-hero > .mx-auto > div:first-child {
+  max-width: 54rem;
+}
+
+.guide-hero > .mx-auto > div:last-child {
+  width: 100%;
+  max-width: 72rem;
+  margin-top: 2.75rem;
+}
+
+.guide-hero h1 {
+  max-width: 56rem;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: clamp(3rem, 6vw, 5.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+}
+
+.guide-hero p.text-lg {
+  max-width: 44rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.guide-hero .feature-list {
+  max-width: 40rem;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+.guide-hero .mt-10.flex {
+  justify-content: center;
+}
+
 .guide-page .glass-panel {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.96));
@@ -173,13 +215,13 @@
 
 .guide-section-light {
   position: relative;
-  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  background: #ffffff;
 }
 
 .guide-section-bridge {
   position: relative;
   background:
-    radial-gradient(circle at top left, rgba(56, 189, 248, 0.1), transparent 30%),
+    radial-gradient(circle at top left, rgba(56, 189, 248, 0.08), transparent 30%),
     linear-gradient(180deg, #f8fafc 0%, #eef6ff 100%);
 }
 
@@ -251,15 +293,24 @@
 }
 
 @media (max-width: 767px) {
-  .guide-hero::before {
-    inset: auto -30% -10% 10%;
-    height: 14rem;
-  }
-
   .guide-button-nav,
   .guide-button-primary,
   .guide-button-secondary {
     width: auto;
+  }
+
+  .guide-site-header > div {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .guide-hero h1 {
+    font-size: 2.9rem;
+    line-height: 1.02;
+  }
+
+  .guide-hero > .mx-auto > div:last-child {
+    margin-top: 2rem;
   }
 }
 

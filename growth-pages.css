@@ -61,17 +61,14 @@
 
 .guide-page {
   background:
-    radial-gradient(circle at top left, rgba(34, 211, 238, 0.06), transparent 28%),
-    linear-gradient(180deg, #ffffff 0%, #f8fafc 42%, #ffffff 100%);
+    radial-gradient(circle at top left, rgba(34, 211, 238, 0.05), transparent 24%),
+    linear-gradient(180deg, #ffffff 0%, #f8fafc 36%, #ffffff 100%);
 }
 
 .guide-site-header {
-  position: sticky;
-  top: 0;
-  z-index: 40;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
-  background: rgba(255, 255, 255, 0.82) !important;
-  backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(12px);
 }
 
 .guide-site-header nav a {
@@ -85,6 +82,9 @@
 .guide-button-nav,
 .guide-button-primary,
 .guide-button-secondary {
+  align-self: flex-start;
+  width: max-content;
+  max-width: 100%;
   transition:
     transform 160ms ease,
     box-shadow 160ms ease,
@@ -94,30 +94,32 @@
 }
 
 .guide-button-nav {
-  background: linear-gradient(135deg, #22d3ee, #38bdf8) !important;
-  color: #082f49 !important;
-  box-shadow: 0 16px 36px rgba(8, 145, 178, 0.24);
+  background: #0891b2 !important;
+  color: #ffffff !important;
+  box-shadow: 0 14px 28px rgba(8, 145, 178, 0.18);
 }
 
 .guide-button-nav:hover {
   transform: translateY(-1px);
-  box-shadow: 0 20px 44px rgba(8, 145, 178, 0.3);
+  box-shadow: 0 18px 34px rgba(8, 145, 178, 0.24);
 }
 
 .guide-button-primary {
-  background: linear-gradient(135deg, #22d3ee, #67e8f9) !important;
-  color: #082f49 !important;
-  box-shadow: 0 18px 40px rgba(34, 211, 238, 0.24);
+  background: #0891b2 !important;
+  color: #ffffff !important;
+  box-shadow: 0 14px 28px rgba(8, 145, 178, 0.18);
 }
 
 .guide-button-primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 22px 50px rgba(34, 211, 238, 0.3);
+  box-shadow: 0 18px 34px rgba(8, 145, 178, 0.24);
 }
 
 .guide-button-secondary {
-  border-color: rgba(255, 255, 255, 0.22) !important;
-  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(15, 23, 42, 0.12) !important;
+  background: rgba(255, 255, 255, 0.92);
+  color: #0f172a !important;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.06);
 }
 
 .guide-button-secondary:hover {
@@ -127,28 +129,46 @@
 .guide-hero {
   position: relative;
   background:
-    radial-gradient(circle at 14% 18%, rgba(34, 211, 238, 0.2), transparent 24%),
-    radial-gradient(circle at 84% 18%, rgba(96, 165, 250, 0.22), transparent 22%),
-    linear-gradient(135deg, #0f172a 0%, #172554 44%, #0f172a 100%);
+    radial-gradient(circle at 12% 12%, rgba(34, 211, 238, 0.12), transparent 24%),
+    radial-gradient(circle at 84% 18%, rgba(96, 165, 250, 0.12), transparent 22%),
+    linear-gradient(180deg, #ffffff 0%, #f8fafc 74%, #eef6ff 100%);
 }
 
 .guide-hero::before {
   content: "";
   position: absolute;
-  inset: auto -12% -28% 46%;
-  height: 26rem;
+  inset: auto -12% -16% 44%;
+  height: 22rem;
   border-radius: 9999px;
-  background: radial-gradient(circle, rgba(34, 211, 238, 0.2), transparent 68%);
-  filter: blur(36px);
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.12), transparent 68%);
+  filter: blur(28px);
   pointer-events: none;
+}
+
+.guide-hero .text-white,
+.guide-hero .text-slate-200 {
+  color: #475569 !important;
+}
+
+.guide-hero .text-cyan-300 {
+  color: #0891b2 !important;
+}
+
+.guide-hero h1,
+.guide-hero .font-display {
+  color: #0f172a;
+}
+
+.guide-hero .feature-list li {
+  color: #475569;
 }
 
 .guide-page .glass-panel {
   background:
-    linear-gradient(180deg, rgba(15, 23, 42, 0.64), rgba(15, 23, 42, 0.42));
-  border: 1px solid rgba(191, 219, 254, 0.16);
-  backdrop-filter: blur(14px);
-  box-shadow: 0 34px 80px rgba(2, 6, 23, 0.28);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.96));
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 26px 56px rgba(15, 23, 42, 0.1);
 }
 
 .guide-section-light {
@@ -167,6 +187,19 @@
   background:
     radial-gradient(circle at top center, rgba(56, 189, 248, 0.14), transparent 26%),
     linear-gradient(180deg, #0f172a 0%, #111827 100%);
+}
+
+.guide-section-dark .guide-button-primary {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.22);
+}
+
+.guide-section-dark .guide-button-secondary {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  background: transparent;
+  color: #ffffff !important;
+  box-shadow: none;
 }
 
 .guide-page .guide-card,
@@ -218,13 +251,15 @@
 }
 
 @media (max-width: 767px) {
-  .guide-site-header {
-    position: static;
+  .guide-hero::before {
+    inset: auto -30% -10% 10%;
+    height: 14rem;
   }
 
-  .guide-hero::before {
-    inset: auto -32% -18% 18%;
-    height: 18rem;
+  .guide-button-nav,
+  .guide-button-primary,
+  .guide-button-secondary {
+    width: auto;
   }
 }
 

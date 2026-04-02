@@ -58,3 +58,126 @@
   background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(59, 130, 246, 0.08));
   border: 1px solid rgba(56, 189, 248, 0.22);
 }
+
+.workflow-guides-shell {
+  margin: 0 auto;
+  max-width: 80rem;
+  padding: 0 1rem;
+}
+
+.workflow-guides-intro {
+  margin: 0 auto;
+  max-width: 48rem;
+  text-align: center;
+}
+
+.workflow-guides-kicker {
+  color: #0891b2;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.workflow-guides-title {
+  margin-top: 1rem;
+  color: #0f172a;
+  font-size: clamp(2.25rem, 4vw, 3.5rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.workflow-guides-copy {
+  margin-top: 1.25rem;
+  color: #64748b;
+  font-size: 1.0625rem;
+  line-height: 1.8;
+}
+
+.workflow-guides-grid {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.workflow-guide-card {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1.75rem;
+  border-radius: 1.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.26);
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+  box-shadow: 0 24px 50px rgba(15, 23, 42, 0.08);
+  color: #0f172a;
+  text-decoration: none;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.workflow-guide-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(34, 211, 238, 0.45);
+  box-shadow: 0 30px 60px rgba(15, 23, 42, 0.14);
+}
+
+.workflow-guide-label {
+  color: #0891b2;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.workflow-guide-title {
+  margin-top: 0.9rem;
+  color: #0f172a;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.workflow-guide-body {
+  margin-top: 1rem;
+  flex: 1;
+  color: #64748b;
+  font-size: 0.98rem;
+  line-height: 1.75;
+}
+
+.workflow-guide-cta {
+  margin-top: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #0f172a;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.workflow-guide-cta::after {
+  content: "→";
+  font-size: 0.95rem;
+  transition: transform 180ms ease;
+}
+
+.workflow-guide-card:hover .workflow-guide-cta::after {
+  transform: translateX(3px);
+}
+
+@media (min-width: 768px) {
+  .workflow-guides-shell {
+    padding: 0 1.5rem;
+  }
+
+  .workflow-guides-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .workflow-guides-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

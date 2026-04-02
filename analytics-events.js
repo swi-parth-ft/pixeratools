@@ -40,7 +40,43 @@
     "/redact-screenshots-mac/": "redact-screenshots-mac",
     "/screenshot-backgrounds-mac/": "screenshot-backgrounds-mac"
   };
-  var GUIDE_SECTION_HTML = '<section id="guides" aria-label="Pixera screenshot workflow guides" class="bg-white py-20 sm:py-24"><div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><div class="mx-auto max-w-3xl text-center"><p class="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-600">Workflow Guides</p><h2 class="mt-4 font-display text-3xl tracking-tight text-slate-900 sm:text-4xl">Choose the screenshot workflow you need to improve.</h2><p class="mt-5 text-lg text-slate-600">These focused guides target the highest-intent searches around Pixera: styling screenshots on Mac, adding annotations, hiding sensitive details, and creating better screenshot backgrounds.</p></div><div class="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4"><a class="rounded-3xl border border-slate-200 bg-slate-50 p-7 shadow-sm transition hover:-translate-y-1 hover:border-cyan-300 hover:shadow-lg" href="/mac-screenshot-editor/"><p class="text-sm font-semibold text-cyan-600">Core Guide</p><h3 class="mt-3 font-display text-2xl text-slate-900">Mac Screenshot Editor</h3><p class="mt-4 text-sm leading-7 text-slate-600">The main Pixera workflow for styling, annotation, privacy cleanup, and export-ready screenshot presentation.</p><span class="mt-5 inline-flex text-sm font-semibold text-slate-900">Open guide</span></a><a class="rounded-3xl border border-slate-200 bg-slate-50 p-7 shadow-sm transition hover:-translate-y-1 hover:border-cyan-300 hover:shadow-lg" href="/screenshot-annotation-tool-mac/"><p class="text-sm font-semibold text-cyan-600">Use Case</p><h3 class="mt-3 font-display text-2xl text-slate-900">Screenshot Annotation Tool</h3><p class="mt-4 text-sm leading-7 text-slate-600">Learn how to add arrows, labels, and clear product callouts without breaking the screenshot workflow.</p><span class="mt-5 inline-flex text-sm font-semibold text-slate-900">Open guide</span></a><a class="rounded-3xl border border-slate-200 bg-slate-50 p-7 shadow-sm transition hover:-translate-y-1 hover:border-cyan-300 hover:shadow-lg" href="/redact-screenshots-mac/"><p class="text-sm font-semibold text-cyan-600">Privacy</p><h3 class="mt-3 font-display text-2xl text-slate-900">Redact Screenshots on Mac</h3><p class="mt-4 text-sm leading-7 text-slate-600">See how Pixera protects emails, API keys, customer names, and other sensitive details before sharing screenshots.</p><span class="mt-5 inline-flex text-sm font-semibold text-slate-900">Open guide</span></a><a class="rounded-3xl border border-slate-200 bg-slate-50 p-7 shadow-sm transition hover:-translate-y-1 hover:border-cyan-300 hover:shadow-lg" href="/screenshot-backgrounds-mac/"><p class="text-sm font-semibold text-cyan-600">Styling</p><h3 class="mt-3 font-display text-2xl text-slate-900">Screenshot Backgrounds</h3><p class="mt-4 text-sm leading-7 text-slate-600">Use blur, gradients, and adaptive insets to make screenshots feel sharper in docs, social posts, and launch pages.</p><span class="mt-5 inline-flex text-sm font-semibold text-slate-900">Open guide</span></a></div></div></section>';
+  var GUIDE_SECTION_HTML = [
+    '<section id="guides" aria-label="Pixera screenshot workflow guides" class="bg-white py-20 sm:py-24">',
+    '<div class="workflow-guides-shell">',
+    '<div class="workflow-guides-intro">',
+    '<p class="workflow-guides-kicker">Workflow Guides</p>',
+    '<h2 class="workflow-guides-title font-display">Choose the screenshot workflow you need to improve.</h2>',
+    '<p class="workflow-guides-copy">These focused guides target the highest-intent searches around Pixera: styling screenshots on Mac, adding annotations, hiding sensitive details, and creating better screenshot backgrounds.</p>',
+    '</div>',
+    '<div class="workflow-guides-grid">',
+    '<a class="workflow-guide-card" href="/mac-screenshot-editor/">',
+    '<p class="workflow-guide-label">Core Guide</p>',
+    '<h3 class="workflow-guide-title font-display">Mac Screenshot Editor</h3>',
+    '<p class="workflow-guide-body">The main Pixera workflow for styling, annotation, privacy cleanup, and export-ready screenshot presentation.</p>',
+    '<span class="workflow-guide-cta">Open guide</span>',
+    '</a>',
+    '<a class="workflow-guide-card" href="/screenshot-annotation-tool-mac/">',
+    '<p class="workflow-guide-label">Use Case</p>',
+    '<h3 class="workflow-guide-title font-display">Screenshot Annotation Tool</h3>',
+    '<p class="workflow-guide-body">Learn how to add arrows, labels, and clear product callouts without breaking the screenshot workflow.</p>',
+    '<span class="workflow-guide-cta">Open guide</span>',
+    '</a>',
+    '<a class="workflow-guide-card" href="/redact-screenshots-mac/">',
+    '<p class="workflow-guide-label">Privacy</p>',
+    '<h3 class="workflow-guide-title font-display">Redact Screenshots on Mac</h3>',
+    '<p class="workflow-guide-body">See how Pixera protects emails, API keys, customer names, and other sensitive details before sharing screenshots.</p>',
+    '<span class="workflow-guide-cta">Open guide</span>',
+    '</a>',
+    '<a class="workflow-guide-card" href="/screenshot-backgrounds-mac/">',
+    '<p class="workflow-guide-label">Styling</p>',
+    '<h3 class="workflow-guide-title font-display">Screenshot Backgrounds</h3>',
+    '<p class="workflow-guide-body">Use blur, gradients, and adaptive insets to make screenshots feel sharper in docs, social posts, and launch pages.</p>',
+    '<span class="workflow-guide-cta">Open guide</span>',
+    '</a>',
+    '</div>',
+    '</div>',
+    '</section>'
+  ].join("");
 
   function ensureGtag() {
     window.dataLayer = window.dataLayer || [];

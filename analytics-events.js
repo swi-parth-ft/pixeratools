@@ -1,5 +1,6 @@
 (function () {
   var seen = {};
+  var initialized = false;
 
   function ensureGtag() {
     window.dataLayer = window.dataLayer || [];
@@ -36,43 +37,76 @@
     return "page";
   }
 
-  function bindClicks(selector, eventName, builder) {
-    var nodes = document.querySelectorAll(selector);
-    var i;
-
-    for (i = 0; i < nodes.length; i += 1) {
-      nodes[i].addEventListener("click", function (event) {
-        var node = event.currentTarget;
-        track(eventName, builder(node));
-      });
-    }
+  function getHref(node) {
+    return (node && node.getAttribute("href")) || "";
   }
 
-  function observeOnce(element, key, eventName, params) {
-    var observer;
+  function bindDelegatedClicks(matcher, eventName, builder) {
+    document.addEventListener("click", function (event) {
+      var node = event.target && event.target.closest ? event.target.closest("a") : null;
 
-    if (!element || seen[key] || !("IntersectionObserver" in window)) {
+      if (!node || !matcher(node)) {
+        return;
+      }
+
+      track(eventName, builder(node));
+    }, true);
+  }
+
+  function isHalfVisible(element) {
+    var rect;
+    var visibleTop;
+    var visibleBottom;
+    var visibleHeight;
+
+    if (!element) {
+      return false;
+    }
+
+    rect = element.getBoundingClientRect();
+    visibleTop = Math.max(rect.top, 0);
+    visibleBottom = Math.min(rect.bottom, window.innerHeight || document.documentElement.clientHeight);
+    visibleHeight = Math.max(0, visibleBottom - visibleTop);
+
+    if (rect.height <= 0) {
+      return false;
+    }
+
+    return visibleHeight / rect.height >= 0.5;
+  }
+
+  function observePricing() {
+    function check() {
+      var pricing = document.getElementById("pricing");
+
+      if (!seen.view_pricing && isHalfVisible(pricing)) {
+        seen.view_pricing = true;
+        track("view_pricing", {
+          page_type: "landing_page",
+          section_id: "pricing"
+        });
+        window.removeEventListener("scroll", check);
+        window.removeEventListener("resize", check);
+      }
+    }
+
+    window.addEventListener("scroll", check, { passive: true });
+    window.addEventListener("resize", check);
+    window.setTimeout(check, 0);
+    window.setTimeout(check, 1000);
+  }
+
+  function initTracking() {
+    if (initialized) {
       return;
     }
 
-    observer = new IntersectionObserver(function (entries) {
-      var i;
+    initialized = true;
 
-      for (i = 0; i < entries.length; i += 1) {
-        if (entries[i].isIntersecting && !seen[key]) {
-          seen[key] = true;
-          track(eventName, params);
-          observer.disconnect();
-          return;
-        }
-      }
-    }, { threshold: 0.5 });
-
-    observer.observe(element);
-  }
-
-  document.addEventListener("DOMContentLoaded", function () {
-    bindClicks('a[href="/Pixera_Installer.dmg"]', "download_installer", function (node) {
+    bindDelegatedClicks(function (node) {
+      var href = getHref(node);
+      return href.indexOf("Pixera") !== -1 && href.indexOf(".dmg") !== -1;
+    }, "download_installer", function (node) {
       return {
         cta_location: findSection(node),
         link_url: node.href,
@@ -80,7 +114,9 @@
       };
     });
 
-    bindClicks('a[href*="lemonsqueezy.com/buy"]', "begin_checkout", function (node) {
+    bindDelegatedClicks(function (node) {
+      return getHref(node).indexOf("lemonsqueezy.com/buy") !== -1;
+    }, "begin_checkout", function (node) {
       return {
         cta_location: findSection(node),
         currency: "USD",
@@ -90,7 +126,9 @@
       };
     });
 
-    bindClicks('a[href^="mailto:hello@pixeratools.com"]', "generate_lead", function (node) {
+    bindDelegatedClicks(function (node) {
+      return getHref(node).indexOf("mailto:hello@pixeratools.com") === 0;
+    }, "generate_lead", function (node) {
       return {
         cta_location: findSection(node),
         method: "email",
@@ -98,14 +136,12 @@
       };
     });
 
-    observeOnce(
-      document.getElementById("pricing"),
-      "view_pricing",
-      "view_pricing",
-      {
-        page_type: "landing_page",
-        section_id: "pricing"
-      }
-    );
-  });
+    observePricing();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initTracking);
+  } else {
+    initTracking();
+  }
 })();

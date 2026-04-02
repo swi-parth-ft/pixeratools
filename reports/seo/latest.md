@@ -12,7 +12,7 @@ Current focus: analytics setup, Search Console readiness, and sales funnel track
 
 ## Immediate Admin Tasks
 
-1. In GA4, keep `G-JQMBBL1XD8` as the active web stream for `https://pixeratools.com/`.
+1. In GA4, keep `G-8233939FQQ` as the active web stream for `https://pixeratools.com/`.
 2. Mark `begin_checkout`, `download_installer`, and `generate_lead` as key events.
 3. Add event-scoped custom dimensions for `cta_location`, `item_name`, `platform`, and `link_url`.
 4. In Search Console, add the Domain property `pixeratools.com`, verify by DNS TXT, and submit `https://pixeratools.com/sitemap.xml`.

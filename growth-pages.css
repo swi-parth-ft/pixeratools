@@ -245,7 +245,8 @@
   box-shadow: 0 26px 56px rgba(15, 23, 42, 0.1);
 }
 
-.guide-hero-image img {
+.guide-hero-image img,
+.guide-hero-image video {
   display: block;
   width: 100%;
   height: auto;

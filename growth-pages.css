@@ -33,6 +33,18 @@
   border-color: rgba(59, 130, 246, 0.28);
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .section-eyebrow {
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -559,9 +571,29 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .guide-related-card-wide {
-    grid-column: span 2;
-  }
+.guide-related-card-wide {
+  grid-column: span 2;
+}
+
+.guide-related-link {
+  margin-top: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
+  text-decoration: none;
+}
+
+.guide-related-link::after {
+  content: "→";
+  transition: transform 180ms ease;
+}
+
+.guide-related-link:hover::after {
+  transform: translateX(3px);
+}
 }
 
 @media (min-width: 48rem) {

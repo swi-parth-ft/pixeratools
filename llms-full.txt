@@ -1,0 +1,36 @@
+# Pixera
+> Pixera is a macOS screenshot editor that turns raw captures into polished assets for product launches, changelogs, docs, support replies, social posts, and internal reviews.
+
+## Product Positioning
+Pixera is the layer you use after capture when a screenshot needs to look intentional. It combines styling, annotation, privacy cleanup, and export framing in one offline macOS workflow.
+
+## Core Capabilities
+- Blur and gradient screenshot backgrounds
+- Adaptive insets, rounded corners, and polished framing
+- Screenshot annotation with arrows, labels, and callouts
+- On-device privacy redaction for emails, API keys, customer details, and other sensitive text
+- Export-ready screenshots for launch pages, documentation, tutorials, support, and social media
+
+## Primary Audiences
+- Product marketers publishing polished launch visuals
+- Developers and founders documenting product workflows
+- Support teams sharing clear screenshot-based instructions
+- Designers and creators who want screenshots to feel branded without using a full design tool
+
+## Key Pages
+- [Homepage](https://pixeratools.com/) — overview, features, testimonials, and pricing
+- [Mac Screenshot Editor](https://pixeratools.com/mac-screenshot-editor/) — broad styling, annotation, privacy, and export workflow
+- [Screenshot Annotation Tool for Mac](https://pixeratools.com/screenshot-annotation-tool-mac/) — arrows, labels, and walkthrough callouts
+- [Redact Screenshots on Mac](https://pixeratools.com/redact-screenshots-mac/) — privacy-safe screenshot cleanup
+- [Screenshot Backgrounds on Mac](https://pixeratools.com/screenshot-backgrounds-mac/) — blur, gradients, adaptive insets, and screenshot presentation
+
+## Product and Conversion Links
+- [Download Pixera](https://pixeratools.com/Pixera_v1.7.dmg)
+- [Buy Pixera Premium](https://pixeratools.lemonsqueezy.com/buy/eaf1e1e6-77bc-4be5-8c72-f1c7635378a7)
+- [Contact Support](mailto:hello@pixeratools.com)
+
+## Messaging Guardrails
+- Pixera is a macOS app
+- Privacy and redaction workflows are on-device
+- Checkout completes off-domain via Lemon Squeezy
+- Position Pixera as a screenshot editor and presentation workflow, not a general-purpose design suite

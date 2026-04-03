@@ -1,24 +1,26 @@
 # Pixera
 > Pixera is a macOS screenshot editor for styling, annotation, privacy redaction, and polished export-ready screenshots.
 
-## Primary Pages
+## Canonical Site
 - [Homepage](https://pixeratools.com/)
+
+## Key Pages
 - [Mac Screenshot Editor](https://pixeratools.com/mac-screenshot-editor/)
 - [Screenshot Annotation Tool for Mac](https://pixeratools.com/screenshot-annotation-tool-mac/)
 - [Redact Screenshots on Mac](https://pixeratools.com/redact-screenshots-mac/)
 - [Screenshot Backgrounds on Mac](https://pixeratools.com/screenshot-backgrounds-mac/)
 
 ## Product Summary
-- Blur, gradients, adaptive insets, rounded corners, and shadows for cleaner screenshot presentation
-- Screenshot annotation with arrows, labels, and callouts
-- On-device privacy redaction for sensitive text before sharing
-- Export-ready screenshots for docs, support, product marketing, and social media
+- macOS desktop app for polishing screenshots after capture
+- Blur, gradients, adaptive insets, rounded corners, and shadows
+- Arrows, labels, callouts, and screenshot annotation workflows
+- On-device privacy redaction for emails, API keys, and other sensitive data
+- Export-ready screenshots for docs, support, launch posts, and social media
 
 ## Conversion Paths
 - [Download Pixera](https://pixeratools.com/Pixera_v1.7.dmg)
 - [Pixera Premium](https://pixeratools.lemonsqueezy.com/buy/eaf1e1e6-77bc-4be5-8c72-f1c7635378a7)
 - [Contact](mailto:hello@pixeratools.com)
 
-## AI-Friendly Inventory
-- Canonical AI crawl file: [llms.txt](https://pixeratools.com/llms.txt)
-- Extended context: [llms-full.txt](https://pixeratools.com/llms-full.txt)
+## More Detail
+- [Full product context](https://pixeratools.com/llms-full.txt)

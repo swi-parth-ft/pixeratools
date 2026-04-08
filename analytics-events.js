@@ -32,21 +32,42 @@
       description: "Create beautiful screenshot backgrounds on Mac with Pixera using blur, gradients, adaptive insets, and polished framing for social posts, docs, and product marketing.",
       keywords: "screenshot backgrounds mac, blur screenshot background, gradient screenshot backgrounds, style screenshots mac",
       canonical: "https://pixeratools.com/screenshot-backgrounds-mac/"
+    },
+    "/documentation-screenshots-mac/": {
+      title: "Documentation Screenshots for Mac | Pixera",
+      description: "Create documentation screenshots on Mac with Pixera using arrows, labels, polished backgrounds, and privacy-safe cleanup for help centers, onboarding guides, and release notes.",
+      keywords: "documentation screenshots mac, annotate screenshots for docs, help center screenshots, changelog screenshots",
+      canonical: "https://pixeratools.com/documentation-screenshots-mac/"
+    },
+    "/pixera-vs-cleanshot-x/": {
+      title: "Pixera vs CleanShot X for Polished Screenshots",
+      description: "Compare Pixera vs CleanShot X for Mac screenshot workflows, including polished styling, annotation, redaction, capture breadth, and straightforward pricing.",
+      keywords: "pixera vs cleanshot x, cleanshot x alternative, screenshot app comparison mac",
+      canonical: "https://pixeratools.com/pixera-vs-cleanshot-x/"
+    },
+    "/pixera-vs-xnapper/": {
+      title: "Pixera vs Xnapper for Styled Screenshots",
+      description: "Compare Pixera vs Xnapper for Mac screenshot styling, annotations, redaction, pricing, and which workflow fits docs, launches, and polished exports better.",
+      keywords: "pixera vs xnapper, xnapper alternative, screenshot beautifier mac",
+      canonical: "https://pixeratools.com/pixera-vs-xnapper/"
     }
   };
   var GUIDE_PATHS = {
     "/mac-screenshot-editor/": "mac-screenshot-editor",
     "/screenshot-annotation-tool-mac/": "screenshot-annotation-tool-mac",
     "/redact-screenshots-mac/": "redact-screenshots-mac",
-    "/screenshot-backgrounds-mac/": "screenshot-backgrounds-mac"
+    "/screenshot-backgrounds-mac/": "screenshot-backgrounds-mac",
+    "/documentation-screenshots-mac/": "documentation-screenshots-mac",
+    "/pixera-vs-cleanshot-x/": "pixera-vs-cleanshot-x",
+    "/pixera-vs-xnapper/": "pixera-vs-xnapper"
   };
   var GUIDE_SECTION_HTML = [
     '<section id="guides" aria-label="Pixera screenshot workflow guides" class="bg-white py-20 sm:py-24">',
     '<div class="workflow-guides-shell">',
     '<div class="workflow-guides-intro">',
     '<p class="workflow-guides-kicker">Workflow Guides</p>',
-    '<h2 class="workflow-guides-title font-display">Choose the screenshot workflow you need to improve.</h2>',
-    '<p class="workflow-guides-copy">These focused guides target the highest-intent searches around Pixera: styling screenshots on Mac, adding annotations, hiding sensitive details, and creating better screenshot backgrounds.</p>',
+    '<h2 class="workflow-guides-title font-display">Choose the Pixera page that matches your workflow.</h2>',
+    '<p class="workflow-guides-copy">Browse the highest-intent Pixera pages: core workflow guides, documentation use cases, and honest comparisons against the Mac screenshot tools buyers already know.</p>',
     '</div>',
     '<div class="workflow-guides-grid">',
     '<a class="workflow-guide-card" href="/mac-screenshot-editor/">',
@@ -54,6 +75,12 @@
     '<h3 class="workflow-guide-title font-display">Mac Screenshot Editor</h3>',
     '<p class="workflow-guide-body">The main Pixera workflow for styling, annotation, privacy cleanup, and export-ready screenshot presentation.</p>',
     '<span class="workflow-guide-cta">See editor workflow</span>',
+    '</a>',
+    '<a class="workflow-guide-card" href="/documentation-screenshots-mac/">',
+    '<p class="workflow-guide-label">Use Case</p>',
+    '<h3 class="workflow-guide-title font-display">Documentation Screenshots</h3>',
+    '<p class="workflow-guide-body">See how Pixera keeps help center, onboarding, and changelog screenshots clearer with annotations, balanced framing, and privacy-safe cleanup.</p>',
+    '<span class="workflow-guide-cta">See documentation workflow</span>',
     '</a>',
     '<a class="workflow-guide-card" href="/screenshot-annotation-tool-mac/">',
     '<p class="workflow-guide-label">Use Case</p>',
@@ -72,6 +99,18 @@
     '<h3 class="workflow-guide-title font-display">Screenshot Backgrounds</h3>',
     '<p class="workflow-guide-body">Use blur, gradients, and adaptive insets to make screenshots feel sharper in docs, social posts, and launch pages.</p>',
     '<span class="workflow-guide-cta">See background workflow</span>',
+    '</a>',
+    '<a class="workflow-guide-card" href="/pixera-vs-cleanshot-x/">',
+    '<p class="workflow-guide-label">Comparison</p>',
+    '<h3 class="workflow-guide-title font-display">Pixera vs CleanShot X</h3>',
+    '<p class="workflow-guide-body">Compare polished still-image workflows, annotation depth, capture breadth, and pricing before choosing your Mac screenshot tool.</p>',
+    '<span class="workflow-guide-cta">See CleanShot X comparison</span>',
+    '</a>',
+    '<a class="workflow-guide-card" href="/pixera-vs-xnapper/">',
+    '<p class="workflow-guide-label">Comparison</p>',
+    '<h3 class="workflow-guide-title font-display">Pixera vs Xnapper</h3>',
+    '<p class="workflow-guide-body">Compare Pixera with Xnapper across styling workflow, annotations, redaction, and the kinds of screenshot jobs each app fits best.</p>',
+    '<span class="workflow-guide-cta">See Xnapper comparison</span>',
     '</a>',
     '</div>',
     '</div>',

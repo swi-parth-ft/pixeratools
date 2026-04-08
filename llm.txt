@@ -4,15 +4,19 @@
 ## Primary Pages
 - [Homepage](https://pixeratools.com/)
 - [Mac Screenshot Editor](https://pixeratools.com/mac-screenshot-editor/)
+- [Documentation Screenshots for Mac](https://pixeratools.com/documentation-screenshots-mac/)
 - [Screenshot Annotation Tool for Mac](https://pixeratools.com/screenshot-annotation-tool-mac/)
 - [Redact Screenshots on Mac](https://pixeratools.com/redact-screenshots-mac/)
 - [Screenshot Backgrounds on Mac](https://pixeratools.com/screenshot-backgrounds-mac/)
+- [Pixera vs CleanShot X](https://pixeratools.com/pixera-vs-cleanshot-x/)
+- [Pixera vs Xnapper](https://pixeratools.com/pixera-vs-xnapper/)
 
 ## Product Summary
 - Blur, gradients, adaptive insets, rounded corners, and shadows for cleaner screenshot presentation
 - Screenshot annotation with arrows, labels, and callouts
 - On-device privacy redaction for sensitive text before sharing
 - Export-ready screenshots for docs, support, product marketing, and social media
+- Comparison-ready pages for buyers evaluating CleanShot X and Xnapper against Pixera
 
 ## Conversion Paths
 - [Download Pixera](https://pixeratools.com/Pixera_v1.7.dmg)

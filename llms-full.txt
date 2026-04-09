@@ -25,6 +25,7 @@ Pixera is the layer you use after capture when a screenshot needs to look intent
 - [Redact Screenshots on Mac](https://pixeratools.com/redact-screenshots-mac/) — privacy-safe screenshot cleanup
 - [Screenshot Backgrounds on Mac](https://pixeratools.com/screenshot-backgrounds-mac/) — blur, gradients, adaptive insets, and screenshot presentation
 - [Pixera vs CleanShot X](https://pixeratools.com/pixera-vs-cleanshot-x/) — comparison for buyers who need styled screenshots vs a broader capture suite
+- [Pixera vs Shottr](https://pixeratools.com/pixera-vs-shottr/) — comparison for buyers deciding between a small screenshot utility and a narrower publishing workflow
 - [Pixera vs Xnapper](https://pixeratools.com/pixera-vs-xnapper/) — comparison for buyers choosing between styling-first screenshot apps
 
 ## Product and Conversion Links

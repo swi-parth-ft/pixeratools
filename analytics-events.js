@@ -45,6 +45,12 @@
       keywords: "pixera vs cleanshot x, cleanshot x alternative, screenshot app comparison mac",
       canonical: "https://pixeratools.com/pixera-vs-cleanshot-x/"
     },
+    "/pixera-vs-shottr/": {
+      title: "Pixera vs Shottr for Mac Screenshot Workflows",
+      description: "Compare Pixera and Shottr across screenshot styling, annotations, scrolling capture, OCR, pricing, and which Mac workflow fits docs, support, and launches better.",
+      keywords: "pixera vs shottr, shottr alternative, mac screenshot app comparison",
+      canonical: "https://pixeratools.com/pixera-vs-shottr/"
+    },
     "/pixera-vs-xnapper/": {
       title: "Pixera vs Xnapper for Styled Screenshots",
       description: "Compare Pixera vs Xnapper for Mac screenshot styling, annotations, redaction, pricing, and which workflow fits docs, launches, and polished exports better.",
@@ -59,6 +65,7 @@
     "/screenshot-backgrounds-mac/": "screenshot-backgrounds-mac",
     "/documentation-screenshots-mac/": "documentation-screenshots-mac",
     "/pixera-vs-cleanshot-x/": "pixera-vs-cleanshot-x",
+    "/pixera-vs-shottr/": "pixera-vs-shottr",
     "/pixera-vs-xnapper/": "pixera-vs-xnapper"
   };
   var GUIDE_SECTION_HTML = [
@@ -105,6 +112,12 @@
     '<h3 class="workflow-guide-title font-display">Pixera vs CleanShot X</h3>',
     '<p class="workflow-guide-body">Compare polished still-image workflows, annotation depth, capture breadth, and pricing before choosing your Mac screenshot tool.</p>',
     '<span class="workflow-guide-cta">See CleanShot X comparison</span>',
+    '</a>',
+    '<a class="workflow-guide-card" href="/pixera-vs-shottr/">',
+    '<p class="workflow-guide-label">Comparison</p>',
+    '<h3 class="workflow-guide-title font-display">Pixera vs Shottr</h3>',
+    '<p class="workflow-guide-body">Compare Pixera with Shottr across backgrounds, annotation tools, scrolling capture, OCR, pricing, and the screenshot jobs each app fits best.</p>',
+    '<span class="workflow-guide-cta">See Shottr comparison</span>',
     '</a>',
     '<a class="workflow-guide-card" href="/pixera-vs-xnapper/">',
     '<p class="workflow-guide-label">Comparison</p>',

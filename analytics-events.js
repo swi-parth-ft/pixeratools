@@ -152,31 +152,6 @@
     '</div>',
     '</section>'
   ].join("");
-  var RESOURCE_SECTION_HTML = [
-    '<section id="resources" aria-label="Pixera app-store screenshot resources" class="bg-slate-50 py-20 sm:py-24">',
-    '<div class="workflow-guides-shell">',
-    '<div class="workflow-guides-intro">',
-    '<p class="workflow-guides-kicker">High-Intent Resources</p>',
-    '<h2 class="workflow-guides-title font-display">Catch the App Store screenshot demand already reaching the site.</h2>',
-    '<p class="workflow-guides-copy">These practical resources answer the commercial-intent searches that are already hitting Pixera. Use them to plan, size, and polish App Store screenshot sets on Mac without overselling what the product does.</p>',
-    '</div>',
-    '<div class="workflow-guides-grid workflow-guides-grid-resources">',
-    '<a class="workflow-guide-card workflow-resource-card" href="/blog/app-screenshots-for-app-store-2026.html">',
-    '<p class="workflow-guide-label">Workflow Resource</p>',
-    '<h3 class="workflow-guide-title font-display">App Screenshots for the App Store in 2026</h3>',
-    '<p class="workflow-guide-body">Plan a stronger screenshot sequence, keep copy readable, and polish each frame on Mac before you upload the final set.</p>',
-    '<span class="workflow-guide-cta">See the App Store screenshot guide</span>',
-    '</a>',
-    '<a class="workflow-guide-card workflow-resource-card" href="/blog/app-store-screenshot-sizes-2026.html">',
-    '<p class="workflow-guide-label">Reference</p>',
-    '<h3 class="workflow-guide-title font-display">App Store Screenshot Sizes for 2026</h3>',
-    '<p class="workflow-guide-body">Use a clean Apple-referenced size table for iPhone, iPad, and Mac screenshot sets before you export and upload.</p>',
-    '<span class="workflow-guide-cta">See the screenshot size reference</span>',
-    '</a>',
-    '</div>',
-    '</div>',
-    '</section>'
-  ].join("");
   var PIXERA_ORGANIZATION_SCHEMA = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -338,8 +313,15 @@
   function ensureGuideHub() {
     var path = normalizePath(window.location.pathname);
     var features;
+    var faq;
 
     if (path !== "/" || document.getElementById("guides")) {
+      return;
+    }
+
+    faq = document.getElementById("faq");
+    if (faq && faq.parentNode) {
+      faq.insertAdjacentHTML("beforebegin", GUIDE_SECTION_HTML);
       return;
     }
 
@@ -351,37 +333,13 @@
     features.insertAdjacentHTML("beforebegin", GUIDE_SECTION_HTML);
   }
 
-  function ensureResourceHub() {
-    var guides = document.getElementById("guides");
-    var features = document.getElementById("features");
-
-    if (normalizePath(window.location.pathname) !== "/" || document.getElementById("resources")) {
-      return;
-    }
-
-    if (guides && guides.parentNode) {
-      guides.insertAdjacentHTML("afterend", RESOURCE_SECTION_HTML);
-      return;
-    }
-
-    if (features && features.parentNode) {
-      features.insertAdjacentHTML("beforebegin", RESOURCE_SECTION_HTML);
-    }
-  }
-
   function stabilizeHomepage() {
     ensureGuideHub();
-    ensureResourceHub();
     window.setTimeout(ensureGuideHub, 0);
-    window.setTimeout(ensureResourceHub, 0);
     window.setTimeout(ensureGuideHub, 150);
-    window.setTimeout(ensureResourceHub, 150);
     window.setTimeout(ensureGuideHub, 600);
-    window.setTimeout(ensureResourceHub, 600);
     window.setTimeout(ensureGuideHub, 1500);
-    window.setTimeout(ensureResourceHub, 1500);
     window.setTimeout(ensureGuideHub, 3000);
-    window.setTimeout(ensureResourceHub, 3000);
   }
 
   function findSection(node) {

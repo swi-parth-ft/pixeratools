@@ -12,6 +12,7 @@
 - [Screenshot Backgrounds on Mac](https://pixeratools.com/screenshot-backgrounds-mac/)
 - [Pixera vs CleanShot X](https://pixeratools.com/pixera-vs-cleanshot-x/)
 - [Pixera vs Shottr](https://pixeratools.com/pixera-vs-shottr/)
+- [Pixera vs Snagit](https://pixeratools.com/pixera-vs-snagit/)
 - [Pixera vs Xnapper](https://pixeratools.com/pixera-vs-xnapper/)
 
 ## Product Summary
@@ -20,7 +21,7 @@
 - Arrows, labels, callouts, and screenshot annotation workflows
 - On-device privacy redaction for emails, API keys, and other sensitive data
 - Export-ready screenshots for docs, support, launch posts, and social media
-- Comparison pages for buyers choosing between Pixera, CleanShot X, Shottr, and Xnapper
+- Comparison pages for buyers choosing between Pixera, CleanShot X, Shottr, Snagit, and Xnapper
 
 ## Conversion Paths
 - [Download Pixera](https://pixeratools.com/Pixera_v1.7.dmg)

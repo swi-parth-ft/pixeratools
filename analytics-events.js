@@ -429,6 +429,24 @@
     }
   }
 
+  function resolveResourceSlug(pathname) {
+    var normalizedPath = pathname || "";
+
+    if (!normalizedPath) {
+      return "";
+    }
+
+    if (RESOURCE_PATHS[normalizedPath]) {
+      return RESOURCE_PATHS[normalizedPath];
+    }
+
+    if (normalizedPath.indexOf("/blog/") === 0 && normalizedPath.indexOf(".html") !== -1) {
+      return normalizedPath.replace(/^\/blog\//, "").replace(/\.html$/, "");
+    }
+
+    return "";
+  }
+
   function isHalfVisible(element) {
     var rect;
     var visibleTop;
@@ -527,12 +545,13 @@
     });
 
     bindDelegatedClicks(function (node) {
-      return !!RESOURCE_PATHS[getPathname(node)];
+      return !!resolveResourceSlug(getPathname(node));
     }, "open_resource", function (node) {
       var resourcePath = getPathname(node);
+      var resourceSlug = resolveResourceSlug(resourcePath);
       return {
         cta_location: findSection(node),
-        resource_slug: RESOURCE_PATHS[resourcePath],
+        resource_slug: resourceSlug,
         resource_type: "blog_article",
         link_url: node.href
       };

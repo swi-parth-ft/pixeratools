@@ -3,115 +3,26 @@
 Date: 2026-04-10
 Scope: live domain audit for `https://pixeratools.com`
 HTML dashboard: `/Users/parthantala/Code/pixeratools/reports/seo/SEO-REPORT-2026-04-10.html`
-Overall score: `82/100`
+Overall score: `n/a/100`
 
 ## Why Deep Analysis Ran
 
-- A major batch of content or growth pages is shipping in this run.
-- Technical findings conflicted with the prior content strategy.
 - Two or more content pages changed in the current run.
-- Homepage traffic concentration remains high while Search Console visibility is still partially blind.
 
 ## What The Deep Audit Confirmed
 
-- AI crawler management explicit: `True`
-- `llms.txt` quality score: `100/100`
-- Broken links found: `0`
-- Internal-link issue count: `0`
-- Social metadata score: `100/100`
+- AI crawler management explicit: `False`
+- `llms.txt` quality score: `n/a/100`
+- Broken links found: `n/a`
+- Internal-link issue count: `n/a`
+- Social metadata score: `n/a/100`
 
 ## Evidence
 
-- `robots`: `ok`
-```text
-robots.txt Analysis — https://pixeratools.com/robots.txt
-==================================================
-Status: 200
-
-Sitemaps (1):
-  • https://pixeratools.com/sitemap.xml
-
-User-Agents (12):
-  *: 0 disallow, 1 allow
-  GPTBot: 0 disallow, 1 allow
-```
-- `llms`: `ok`
-```text
-llms.txt Check — https://pixeratools.com/llms.txt
-==================================================
-Status: ✅ Found (HTTP 200)
-Title: Pixera
-Description: Pixera is a macOS screenshot editor for styling, annotation, privacy redaction, and polished export-ready screenshots.
-Sections: 5
-Links: 14
-Quality Score: 100/100
-
-llms-full.txt: ✅ Found
-```
-- `broken_links`: `ok`
-```text
-Broken Link Check — https://pixeratools.com
-==================================================
-Total: 12 | ✅ Healthy: 11 | 🔴 Broken: 0 | ↪️ Redirected: 1 | ⏱️ Timeout: 0
-```
-- `internal_links`: `ok`
-```text
-{
-  "start_url": "https://pixeratools.com",
-  "domain": "pixeratools.com",
-  "pages_crawled": 12,
-  "total_internal_links": 84,
-  "unique_pages_found": 11,
-  "max_depth_reached": 1,
-  "pages": {
-    "https://pixeratools.com/pixera-vs-snagit": {
-      "outgoing_links": 6,
-```
-- `social_meta`: `ok`
-```text
-Social Meta Tags — https://pixeratools.com
-==================================================
-Score: 100/100
-
-Open Graph (7/7):
-  ✅ og:title: Mac Screenshot Editor for Styled Screenshots | Pixera
-  ✅ og:description: Pixera is a Mac screenshot editor for styling, annotating, a...
-  ✅ og:image: https://pixeratools.com/social-card.jpg
-  ✅ og:url: https://pixeratools.com
-  ✅ og:type: website
-```
-- `pagespeed_mobile`: `ok`
-```text
-{
-  "url": "https://pixeratools.com",
-  "strategy": "mobile",
-  "performance_score": null,
-  "metrics": {},
-  "opportunities": [],
-  "diagnostics": [],
-  "field_data_available": false,
-  "error": "Rate limited by Google API. Wait a few minutes or add an API key."
-}
-```
-- `html_report`: `ok`
-```text
-🔍 Analyzing https://pixeratools.com...
-  ⏳ Fetching page HTML...
-  ⏳ Running robots_checker.py...
-  ✅ robots_checker.py (0.3s)
-  ⏳ Running security_headers.py...
-  ✅ security_headers.py (0.2s)
-  ⏳ Running social_meta.py...
-  ✅ social_meta.py (0.3s)
-  ⏳ Running redirect_checker.py...
-  ✅ redirect_checker.py (0.2s)
-```
 
 ## Remaining Gaps
 
-- Search Console is still blocked for this service account, so live query and CTR evidence remain incomplete.
 - Lemon Squeezy purchase analytics are still unavailable in this environment.
-- PageSpeed API evidence is incomplete: Rate limited by Google API. Wait a few minutes or add an API key.
 
 ## Recommended Next Bets
 

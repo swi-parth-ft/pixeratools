@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import base64
 import datetime as dt
+from html import escape
 import json
 import math
 import os
@@ -16,6 +17,7 @@ import textwrap
 import urllib.error
 import urllib.parse
 import urllib.request
+import xml.etree.ElementTree as ET
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
@@ -26,6 +28,8 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 REPORTS_DIR = REPO_ROOT / "reports" / "seo"
 DATA_DIR = REPORTS_DIR / "data"
 SEO_SKILL_DIR = Path("/Users/parthantala/.codex/skills/seo")
+BLOG_DIR = REPO_ROOT / "blog"
+SITEMAP_PATH = REPO_ROOT / "sitemap.xml"
 
 DEFAULT_SITE_URL = "https://pixeratools.com"
 DEFAULT_GA_PROPERTY_ID = "500585866"
@@ -59,6 +63,104 @@ FUNNEL_EVENTS = [
     "begin_checkout",
     "download_installer",
     "generate_lead",
+]
+CONTENT_CLUSTER_SIZE_MIN = 4
+CONTENT_CLUSTER_SIZE_MAX = 5
+CLUSTER_THEMES = [
+    {
+        "slug": "app-store-screenshots",
+        "topic": "App Store screenshots for iOS and Mac apps",
+        "primary_keyword": "app store screenshots",
+    },
+    {
+        "slug": "documentation-screenshots",
+        "topic": "documentation screenshots for product docs and help centers",
+        "primary_keyword": "documentation screenshots",
+    },
+    {
+        "slug": "release-notes-screenshots",
+        "topic": "release notes screenshots for SaaS updates",
+        "primary_keyword": "release notes screenshots",
+    },
+    {
+        "slug": "support-screenshots",
+        "topic": "support screenshots for customer success teams",
+        "primary_keyword": "support screenshots",
+    },
+    {
+        "slug": "privacy-safe-screenshots",
+        "topic": "privacy-safe screenshots for public docs and social posts",
+        "primary_keyword": "redact screenshots",
+    },
+]
+CLUSTER_PAGE_BLUEPRINTS = [
+    {
+        "slug": "workflow",
+        "label": "Workflow",
+        "title_template": "{topic}: workflow that ships faster in {year}",
+        "description_template": "Use this practical workflow for {topic} on Mac without overdesigning. Keep each image clear, truthful, and ready to publish.",
+        "kicker": "Workflow Playbook",
+        "objective": "Build a repeatable capture-to-publish workflow that teams can run daily.",
+    },
+    {
+        "slug": "checklist",
+        "label": "Checklist",
+        "title_template": "{topic}: publish checklist for marketing and docs teams",
+        "description_template": "Run this pre-publish checklist for {topic} so screenshots stay clear, branded, and safe before they go live.",
+        "kicker": "Pre-Publish Checklist",
+        "objective": "Prevent common quality and trust issues before screenshots go public.",
+    },
+    {
+        "slug": "examples",
+        "label": "Examples",
+        "title_template": "{topic}: headline, callout, and annotation examples",
+        "description_template": "Use these message and annotation patterns for {topic} to improve clarity while avoiding noisy screenshot layouts.",
+        "kicker": "Message Examples",
+        "objective": "Speed up copy and annotation decisions with reusable patterns.",
+    },
+    {
+        "slug": "mistakes",
+        "label": "Troubleshooting",
+        "title_template": "{topic}: mistakes that hurt CTR and trust",
+        "description_template": "Avoid the most common mistakes in {topic}, from cluttered visuals to misleading callouts, and keep screenshot pages conversion-ready.",
+        "kicker": "Mistakes and Fixes",
+        "objective": "Fix the recurring mistakes that weaken clicks, trust, and conversion intent.",
+    },
+    {
+        "slug": "comparison",
+        "label": "Decision Guide",
+        "title_template": "{topic}: manual workflow vs dedicated screenshot tools",
+        "description_template": "Compare manual screenshot workflows with dedicated Mac tooling for {topic} so teams can choose speed, consistency, and privacy controls.",
+        "kicker": "Tooling Decision",
+        "objective": "Help teams choose between ad-hoc manual edits and dedicated screenshot workflows.",
+    },
+]
+CORE_GUIDE_LINKS = [
+    {
+        "href": "/mac-screenshot-editor/",
+        "title": "Mac Screenshot Editor",
+        "anchor": "Mac Screenshot Editor workflow",
+    },
+    {
+        "href": "/documentation-screenshots-mac/",
+        "title": "Documentation Screenshots for Mac",
+        "anchor": "documentation screenshots guide",
+    },
+    {
+        "href": "/screenshot-annotation-tool-mac/",
+        "title": "Screenshot Annotation Tool for Mac",
+        "anchor": "screenshot annotation guide",
+    },
+    {
+        "href": "/redact-screenshots-mac/",
+        "title": "Redact Screenshots on Mac",
+        "anchor": "redact screenshots guide",
+    },
+    {
+        "href": "/screenshot-backgrounds-mac/",
+        "title": "Screenshot Backgrounds on Mac",
+        "anchor": "screenshot backgrounds guide",
+    },
 ]
 
 
@@ -97,6 +199,22 @@ def parse_args() -> argparse.Namespace:
         "--run-live-deep-audit",
         action="store_true",
         help="Run the bundled seo skill checks against the live site when deep mode is enabled.",
+    )
+    parser.add_argument(
+        "--disable-daily-cluster",
+        action="store_true",
+        help="Skip automatic daily generation of blog cluster pages.",
+    )
+    parser.add_argument(
+        "--cluster-size",
+        type=int,
+        default=CONTENT_CLUSTER_SIZE_MAX,
+        help=f"Daily cluster size ({CONTENT_CLUSTER_SIZE_MIN}-{CONTENT_CLUSTER_SIZE_MAX}).",
+    )
+    parser.add_argument(
+        "--cluster-theme",
+        default="",
+        help="Optional theme slug override for daily content cluster generation.",
     )
     return parser.parse_args()
 
@@ -279,6 +397,336 @@ def round_metric(value: float, digits: int = 2) -> float:
     if math.isfinite(value):
         return round(value, digits)
     return 0.0
+
+
+def slugify(value: str) -> str:
+    cleaned = re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-")
+    return re.sub(r"-{2,}", "-", cleaned)
+
+
+def clamp_cluster_size(size: int) -> int:
+    return max(CONTENT_CLUSTER_SIZE_MIN, min(CONTENT_CLUSTER_SIZE_MAX, size))
+
+
+def pick_cluster_theme(report_date: str, override: str = "") -> dict[str, str]:
+    if override:
+        normalized_override = slugify(override)
+        for theme in CLUSTER_THEMES:
+            if theme["slug"] == normalized_override:
+                return theme
+    ordinal = dt.date.fromisoformat(report_date).toordinal()
+    return CLUSTER_THEMES[ordinal % len(CLUSTER_THEMES)]
+
+
+def build_cluster_page_specs(
+    *,
+    report_date: str,
+    cluster_theme: dict[str, str],
+    cluster_size: int,
+) -> list[dict[str, Any]]:
+    year = dt.date.fromisoformat(report_date).year
+    page_specs: list[dict[str, Any]] = []
+    for blueprint in CLUSTER_PAGE_BLUEPRINTS[:cluster_size]:
+        title = blueprint["title_template"].format(topic=cluster_theme["topic"], year=year)
+        base_slug = f"{cluster_theme['slug']}-{blueprint['slug']}-{report_date}"
+        page_specs.append(
+            {
+                "title": title[0].upper() + title[1:],
+                "slug": slugify(base_slug),
+                "description": blueprint["description_template"].format(topic=cluster_theme["topic"]),
+                "kicker": blueprint["kicker"],
+                "label": blueprint["label"],
+                "objective": blueprint["objective"],
+                "keyword": cluster_theme["primary_keyword"],
+            }
+        )
+    return page_specs
+
+
+def render_cluster_article(
+    *,
+    spec: dict[str, Any],
+    report_date: str,
+    site_url: str,
+    theme_topic: str,
+    sibling_pages: list[dict[str, str]],
+) -> str:
+    canonical_url = f"{site_url.rstrip('/')}/blog/{spec['slug']}.html"
+    title = spec["title"]
+    description = spec["description"]
+    keyword = spec["keyword"]
+    related_cards = "\n".join(
+        [
+            (
+                "            <article class=\"related-card guide-related-card\">"
+                f"<p>Cluster Page</p><h3>{escape(page['title'])}</h3>"
+                f"<p>Keep this cluster connected with intent-based internal links.</p>"
+                f"<a class=\"guide-related-link\" href=\"{escape(page['href'])}\">{escape(page['anchor'])}</a></article>"
+            )
+            for page in sibling_pages[:4]
+        ]
+    )
+    guide_cards = "\n".join(
+        [
+            (
+                "            <article class=\"related-card guide-related-card\">"
+                f"<p>Guide</p><h3>{escape(guide['title'])}</h3>"
+                f"<p>Support this topic with a stronger commercial workflow page.</p>"
+                f"<a class=\"guide-related-link\" href=\"{escape(guide['href'])}\">{escape(guide['anchor'])}</a></article>"
+            )
+            for guide in CORE_GUIDE_LINKS[:2]
+        ]
+    )
+
+    return textwrap.dedent(
+        f"""\
+        <!DOCTYPE html>
+        <html lang="en" class="h-full scroll-smooth bg-white antialiased">
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <link rel="stylesheet" href="/_next/static/css/f3ee4852a5fdaa00.css">
+          <link rel="stylesheet" href="/growth-pages.css">
+          <link rel="icon" href="/favicon.ico">
+          <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+          <link rel="manifest" href="/manifest.json">
+          <link rel="canonical" href="{escape(canonical_url)}">
+          <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+          <meta name="description" content="{escape(description)}">
+          <meta name="keywords" content="{escape(keyword)}, mac screenshot editor, screenshot workflow">
+          <meta property="og:title" content="{escape(title)} | Pixera">
+          <meta property="og:description" content="{escape(description)}">
+          <meta property="og:type" content="article">
+          <meta property="og:url" content="{escape(canonical_url)}">
+          <meta property="og:site_name" content="Pixera">
+          <meta property="og:locale" content="en_US">
+          <meta property="og:image" content="https://pixeratools.com/social-card.jpg">
+          <meta property="og:image:width" content="1200">
+          <meta property="og:image:height" content="630">
+          <meta name="twitter:card" content="summary_large_image">
+          <meta name="twitter:title" content="{escape(title)} | Pixera">
+          <meta name="twitter:description" content="{escape(description)}">
+          <meta name="twitter:image" content="https://pixeratools.com/social-card.jpg">
+          <title>{escape(title)} | Pixera</title>
+          <script type="application/ld+json">{{"@context":"https://schema.org","@type":"Article","headline":"{escape(title)}","description":"{escape(description)}","datePublished":"{report_date}","dateModified":"{report_date}","author":{{"@type":"Organization","name":"Pixera"}},"publisher":{{"@type":"Organization","name":"Pixera","logo":{{"@type":"ImageObject","url":"https://pixeratools.com/icon-512.png"}}}},"mainEntityOfPage":"{escape(canonical_url)}","image":"https://pixeratools.com/social-card.jpg"}}</script>
+          <script src="/analytics-events.js" defer></script>
+        </head>
+        <body class="article-page min-h-full">
+          <header class="guide-topbar">
+            <div class="article-shell">
+              <nav class="guide-topbar-row" aria-label="Primary">
+                <div class="guide-topbar-brand">
+                  <a class="guide-topbar-logo" aria-label="Home" href="/"><span class="sr-only">Pixera home</span><img src="/_next/static/media/logo.c3284414.webp" alt="Logo" width="120" height="48" class="h-10 w-auto"></a>
+                  <div class="guide-topbar-links">
+                    <a href="/#guides">Guides</a>
+                    <a href="/#resources">Resources</a>
+                    <a href="/#pricing">Pricing</a>
+                    <a href="/privacy.html">Privacy</a>
+                  </div>
+                </div>
+                <a class="guide-download-button" href="/Pixera_v1.7.dmg">Download Pixera</a>
+              </nav>
+            </div>
+          </header>
+          <main>
+            <section class="article-hero">
+              <div class="article-shell article-hero-grid">
+                <div class="article-copy">
+                  <p class="article-kicker">{escape(spec['kicker'])}</p>
+                  <h1 class="article-title">{escape(title)}.</h1>
+                  <p class="article-dek">{escape(description)}</p>
+                  <div class="article-meta">
+                    <span>Cluster topic: {escape(theme_topic)}</span>
+                    <span>Updated {report_date}</span>
+                  </div>
+                  <div class="article-actions">
+                    <a class="guide-download-button" href="/Pixera_v1.7.dmg">Download Pixera</a>
+                    <a class="guide-outline-button" href="/mac-screenshot-editor/">Open the Mac Screenshot Editor workflow</a>
+                  </div>
+                </div>
+                <aside class="article-highlight">
+                  <p class="section-eyebrow text-sm font-semibold text-cyan-300">{escape(spec['label'])}</p>
+                  <h2>What this page is designed to do</h2>
+                  <ul class="feature-list">
+                    <li>{escape(spec['objective'])}</li>
+                    <li>Keep every screenshot page truthful and intent-driven.</li>
+                    <li>Link readers directly into guide pages with clear anchor text.</li>
+                    <li>Move visitors toward download and pricing actions without clickbait.</li>
+                  </ul>
+                </aside>
+              </div>
+            </section>
+            <section class="article-section">
+              <div class="article-shell article-grid">
+                <article class="article-prose">
+                  <h2>Build this page around one high-intent job</h2>
+                  <p>Every page in this cluster should solve one practical screenshot job. Avoid broad generic copy. Focus on the decision a buyer or operator is trying to make in the moment.</p>
+                  <h2>Execution framework</h2>
+                  <ol class="article-list">
+                    <li>Match the title and intro to the exact search intent.</li>
+                    <li>Use one screenshot objective per section, not mixed goals.</li>
+                    <li>Add internal links with descriptive anchors to related guides.</li>
+                    <li>Close with a clear next step that maps to Pixera's real workflow.</li>
+                  </ol>
+                  <h2>Related pages in this cluster</h2>
+                  <div class="article-related-grid">
+        {related_cards}
+        {guide_cards}
+                  </div>
+                </article>
+                <aside class="article-grid">
+                  <section class="article-card">
+                    <p class="section-eyebrow text-sm font-semibold text-cyan-600">Internal Linking Rule</p>
+                    <h3>Prefer descriptive anchors</h3>
+                    <p>Use anchors like "documentation screenshots guide" or "redact screenshots guide" instead of generic "Open guide" links.</p>
+                  </section>
+                  <section class="article-card">
+                    <p class="section-eyebrow text-sm font-semibold text-cyan-600">Conversion Rule</p>
+                    <h3>Keep claims factual</h3>
+                    <p>Do not invent benchmarks or guarantees. Tie CTA copy to the real product workflow and measured events.</p>
+                  </section>
+                </aside>
+              </div>
+            </section>
+          </main>
+          <footer class="guide-site-footer border-t border-slate-200 bg-slate-50">
+            <div class="article-shell guide-footer-shell">
+              <div class="guide-footer-row">
+                <div>
+                  <p class="font-display text-xl text-slate-900">Pixera</p>
+                  <p class="mt-2 text-sm text-slate-600">A macOS screenshot editor for cleaner launch assets, docs, and support visuals.</p>
+                </div>
+                <nav class="guide-footer-links">
+                  <a href="/">Home</a>
+                  <a href="/mac-screenshot-editor/">Mac Screenshot Editor workflow</a>
+                  <a href="/documentation-screenshots-mac/">Documentation screenshots guide</a>
+                  <a href="/privacy.html">Privacy</a>
+                  <a href="mailto:hello@pixeratools.com">hello@pixeratools.com</a>
+                </nav>
+              </div>
+            </div>
+          </footer>
+        </body>
+        </html>
+        """
+    )
+
+
+def update_sitemap_entries(page_paths: list[str], report_date: str, site_url: str) -> dict[str, int]:
+    if not SITEMAP_PATH.exists() or not page_paths:
+        return {"added": 0, "updated": 0}
+
+    namespace = "http://www.sitemaps.org/schemas/sitemap/0.9"
+    ET.register_namespace("", namespace)
+    tree = ET.parse(SITEMAP_PATH)
+    root = tree.getroot()
+    loc_tag = f"{{{namespace}}}loc"
+    lastmod_tag = f"{{{namespace}}}lastmod"
+    url_tag = f"{{{namespace}}}url"
+    existing_by_loc: dict[str, ET.Element] = {}
+    for node in root.findall(url_tag):
+        loc = node.find(loc_tag)
+        if loc is not None and loc.text:
+            existing_by_loc[loc.text.strip()] = node
+
+    added = 0
+    updated = 0
+    base_url = site_url.rstrip("/")
+    for relative_path in page_paths:
+        loc_value = f"{base_url}/{relative_path.lstrip('/')}"
+        node = existing_by_loc.get(loc_value)
+        if node is None:
+            node = ET.SubElement(root, url_tag)
+            loc = ET.SubElement(node, loc_tag)
+            loc.text = loc_value
+            ET.SubElement(node, lastmod_tag).text = report_date
+            existing_by_loc[loc_value] = node
+            added += 1
+            continue
+        lastmod = node.find(lastmod_tag)
+        if lastmod is None:
+            lastmod = ET.SubElement(node, lastmod_tag)
+        if lastmod.text != report_date:
+            lastmod.text = report_date
+            updated += 1
+
+    ET.indent(tree, space="  ")
+    tree.write(SITEMAP_PATH, encoding="utf-8", xml_declaration=True)
+    return {"added": added, "updated": updated}
+
+
+def build_daily_content_cluster(
+    *,
+    report_date: str,
+    site_url: str,
+    cluster_size: int,
+    cluster_theme_override: str = "",
+    disabled: bool = False,
+) -> dict[str, Any]:
+    if disabled:
+        return {
+            "status": "disabled",
+            "message": "Daily content cluster generation was disabled for this run.",
+            "created_count": 0,
+            "existing_count": 0,
+            "pages": [],
+            "sitemap": {"added": 0, "updated": 0},
+        }
+
+    BLOG_DIR.mkdir(parents=True, exist_ok=True)
+    resolved_size = clamp_cluster_size(cluster_size)
+    theme = pick_cluster_theme(report_date, cluster_theme_override)
+    specs = build_cluster_page_specs(report_date=report_date, cluster_theme=theme, cluster_size=resolved_size)
+    sibling_pages = [
+        {
+            "title": spec["title"],
+            "href": f"/blog/{spec['slug']}.html",
+            "anchor": spec["title"],
+        }
+        for spec in specs
+    ]
+
+    created_count = 0
+    existing_count = 0
+    pages: list[dict[str, Any]] = []
+    for spec in specs:
+        relative_path = f"blog/{spec['slug']}.html"
+        target = REPO_ROOT / relative_path
+        page_siblings = [page for page in sibling_pages if page["href"] != f"/blog/{spec['slug']}.html"]
+        content = render_cluster_article(
+            spec=spec,
+            report_date=report_date,
+            site_url=site_url,
+            theme_topic=theme["topic"],
+            sibling_pages=page_siblings,
+        )
+        if target.exists():
+            existing_count += 1
+            status = "existing"
+        else:
+            target.write_text(content.rstrip() + "\n")
+            created_count += 1
+            status = "created"
+        pages.append(
+            {
+                "title": spec["title"],
+                "path": relative_path,
+                "url": f"{site_url.rstrip('/')}/blog/{spec['slug']}.html",
+                "status": status,
+            }
+        )
+
+    sitemap_delta = update_sitemap_entries([page["path"] for page in pages], report_date, site_url)
+    return {
+        "status": "ok",
+        "cluster_id": f"{report_date}-{theme['slug']}",
+        "theme": theme,
+        "target_size": resolved_size,
+        "created_count": created_count,
+        "existing_count": existing_count,
+        "pages": pages,
+        "sitemap": sitemap_delta,
+    }
 
 
 def collect_git_state() -> dict[str, Any]:
@@ -991,6 +1439,7 @@ def render_growth_report(snapshot: dict[str, Any]) -> str:
     git_state = snapshot["git"]
     self_review = snapshot["self_review"]
     deep_mode = snapshot["deep_mode"]
+    daily_cluster = snapshot.get("daily_cluster", {})
 
     top_pages_lines = []
     for page in ga4.get("top_pages_30d", [])[:8]:
@@ -1095,6 +1544,24 @@ def render_growth_report(snapshot: dict[str, Any]) -> str:
             "",
         ]
     )
+    if daily_cluster.get("status") == "ok":
+        report_lines.append(
+            "- Daily cluster: "
+            f"`{daily_cluster.get('theme', {}).get('slug', 'unknown')}` "
+            f"with {daily_cluster.get('created_count', 0)} new pages and "
+            f"{daily_cluster.get('existing_count', 0)} existing pages."
+        )
+        if daily_cluster.get("sitemap"):
+            report_lines.append(
+                "- Cluster sitemap updates: "
+                f"{daily_cluster['sitemap'].get('added', 0)} added, "
+                f"{daily_cluster['sitemap'].get('updated', 0)} updated."
+            )
+        for page in daily_cluster.get("pages", []):
+            report_lines.append(f"- `{page['path']}` ({page['status']})")
+    elif daily_cluster.get("status") == "disabled":
+        report_lines.append("- Daily cluster: disabled for this run.")
+
     if git_state["pages_shipped"]:
         for page in git_state["pages_shipped"]:
             report_lines.append(f"- `{page}`")
@@ -1148,10 +1615,24 @@ def render_growth_report(snapshot: dict[str, Any]) -> str:
             "## Next Bets",
             "",
             "1. Deploy the current content and crawl-file batch so GA4 can start distributing traffic beyond the homepage.",
-            "2. Grant this service account Search Console access or verify the domain property so impressions, clicks, and CTR can be refreshed directly.",
-            "3. Add Lemon Squeezy purchase tracking or API credentials so `begin_checkout` can be tied to actual revenue.",
         ]
     )
+    if gsc.get("status") == "ok":
+        report_lines.append(
+            "2. Improve CTR on the top query/page pairs by tightening titles and meta descriptions on pages with impressions but low clicks."
+        )
+    else:
+        report_lines.append(
+            "2. Grant this service account Search Console access or verify the domain property so impressions, clicks, and CTR can be refreshed directly."
+        )
+    if checkout.get("status") == "ok":
+        report_lines.append(
+            "3. Tie checkout and purchase events to page-level cohorts so new cluster pages can be evaluated by revenue impact, not only top-funnel events."
+        )
+    else:
+        report_lines.append(
+            "3. Add Lemon Squeezy purchase tracking or API credentials so `begin_checkout` can be tied to actual revenue."
+        )
 
     if snapshot.get("proposed_upgrade"):
         report_lines.extend(
@@ -1274,6 +1755,14 @@ def main() -> int:
         ],
     )
 
+    daily_cluster = build_daily_content_cluster(
+        report_date=report_date,
+        site_url=args.site_url,
+        cluster_size=args.cluster_size,
+        cluster_theme_override=args.cluster_theme.strip(),
+        disabled=args.disable_daily_cluster,
+    )
+
     git_state = collect_git_state()
     ga4 = collect_ga4(access_token, args.ga_property_id, args.locale_tz)
     gsc = collect_gsc(access_token, args.gsc_sites or DEFAULT_GSC_SITES, args.locale_tz)
@@ -1290,6 +1779,7 @@ def main() -> int:
         "gsc": gsc,
         "checkout": checkout,
         "git": git_state,
+        "daily_cluster": daily_cluster,
         "strategy_shift": args.strategy_shift.strip(),
     }
 

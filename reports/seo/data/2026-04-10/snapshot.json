@@ -3,57 +3,63 @@
     "message": "No Lemon Squeezy API key was present in the environment.",
     "status": "unavailable"
   },
-  "deep_audit": {
-    "commands": {
-      "broken_links": {
-        "output": "Broken Link Check \u2014 https://pixeratools.com\n==================================================\nTotal: 12 | \u2705 Healthy: 11 | \ud83d\udd34 Broken: 0 | \u21aa\ufe0f Redirected: 1 | \u23f1\ufe0f Timeout: 0\n",
-        "status": "ok"
+  "daily_cluster": {
+    "cluster_id": "2026-04-10-documentation-screenshots",
+    "created_count": 5,
+    "existing_count": 0,
+    "pages": [
+      {
+        "path": "blog/documentation-screenshots-workflow-2026-04-10.html",
+        "status": "created",
+        "title": "Documentation screenshots for product docs and help centers: workflow that ships faster in 2026",
+        "url": "https://pixeratools.com/blog/documentation-screenshots-workflow-2026-04-10.html"
       },
-      "html_report": {
-        "output": "\ud83d\udd0d Analyzing https://pixeratools.com...\n  \u23f3 Fetching page HTML...\n  \u23f3 Running robots_checker.py...\n  \u2705 robots_checker.py (0.3s)\n  \u23f3 Running security_headers.py...\n  \u2705 security_headers.py (0.2s)\n  \u23f3 Running social_meta.py...\n  \u2705 social_meta.py (0.3s)\n  \u23f3 Running redirect_checker.py...\n  \u2705 redirect_checker.py (0.2s)\n  \u23f3 Running llms_txt_checker.py...\n  \u2705 llms_txt_checker.py (0.4s)\n  \u23f3 Running broken_links.py...\n  \u2705 broken_links.py (2.8s)\n  \u23f3 Running internal_links.py...\n  \u2705 internal_links.py (5.2s)\n  \u23f3 Running pagespeed.py...\n  \u26a0\ufe0f error pagespeed.py (10.3s)\n  \u23f3 Running entity_checker.py...\n  \u2705 entity_checker.py (1.5s)\n  \u23f3 Running link_profile.py...\n  \u2705 link_profile.py (5.3s)\n  \u23f3 Running hreflang_checker.py...\n  \u2705 hreflang_checker.py (0.4s)\n  \u23f3 Running duplicate_content.py...\n  \u2705 duplicate_content.py (10.6s)\n  \u23f3 Running parse_html.py...\n  \u2705 parse_html.py (0.1s)\n  \u23f3 Running readability.py...\n  \u2705 readability.py (0.1s)\n  \u23f3 Running article_seo.py...\n  \u2705 article_seo.py (0.5s)\n\n\u2705 Report saved to: /Users/parthantala/Code/pixeratools/reports/seo/SEO-REPORT-2026-04-10.html\n   Overall Score: 82/100\n   Open in browser to view the interactive report\n",
-        "status": "ok"
+      {
+        "path": "blog/documentation-screenshots-checklist-2026-04-10.html",
+        "status": "created",
+        "title": "Documentation screenshots for product docs and help centers: publish checklist for marketing and docs teams",
+        "url": "https://pixeratools.com/blog/documentation-screenshots-checklist-2026-04-10.html"
       },
-      "internal_links": {
-        "output": "{\n  \"start_url\": \"https://pixeratools.com\",\n  \"domain\": \"pixeratools.com\",\n  \"pages_crawled\": 12,\n  \"total_internal_links\": 84,\n  \"unique_pages_found\": 11,\n  \"max_depth_reached\": 1,\n  \"pages\": {\n    \"https://pixeratools.com/pixera-vs-snagit\": {\n      \"outgoing_links\": 6,\n      \"incoming_links\": 6\n    },\n    \"https://pixeratools.com\": {\n      \"outgoing_links\": 11,\n      \"incoming_links\": 0\n    },\n    \"https://pixeratools.com/pixera-vs-shottr\": {\n      \"outgoing_links\": 6,\n      \"incoming_links\": 3\n    },\n    \"https://pixeratools.com/screenshot-backgrounds-mac\": {\n      \"outgoing_links\": 8,\n      \"incoming_links\": 9\n    },\n    \"https://pixeratools.com/mac-screenshot-editor\": {\n      \"outgoing_links\": 8,\n      \"incoming_links\": 10\n    },\n    \"https://pixeratools.com/screenshot-annotation-tool-mac\": {\n      \"outgoing_links\": 7,\n      \"incoming_links\": 7\n    },\n    \"https://pixeratools.com/documentation-screenshots-mac\": {\n      \"outgoing_links\": 8,\n      \"incoming_links\": 10\n    },\n    \"https://pixeratools.com/pixera-vs-cleanshot-x\": {\n      \"outgoing_links\": 6,\n      \"incoming_links\": 6\n    },\n    \"https://pixeratools.com/redact-screenshots-mac\": {\n      \"outgoing_links\": 7,\n      \"incoming_links\": 7\n    },\n    \"https://pixeratools.com/Pixera_v1.7.dmg\": {\n      \"outgoing_links\": 0,\n      \"incoming_links\": 11\n    },\n    \"https://pixeratools.com/pixera-vs-xnapper\": {\n      \"outgoing_links\": 6,\n      \"incoming_links\": 4\n    },\n    \"https://pixeratools.com/\": {\n      \"outgoing_links\": 11,\n      \"incoming_links\": 11\n    }\n  },\n  \"anchor_texts\": {\n    \"Pixera home\": 11,\n    \"Documentation Screenshots for Mac\": 7,\n    \"Screenshot Backgrounds on Mac\": 5,\n    \"Download Now\": 5,\n    \"\\uf8ff Download Now\": 4,\n    \"Redact Screenshots on Mac\": 4,\n    \"Screenshot Editor\": 4,\n    \"Mac Screenshot Editor\": 4,\n    \"Compare Pixera vs Snagit\": 3,\n    \"Screenshot Annotation Tool for Mac\": 3,\n    \"\\uf8ff DownloadNow\": 2,\n    \"Core GuideMac Screenshot EditorThe main Pixera workflow for styling, annotation,\": 2,\n    \"Use CaseDocumentation ScreenshotsSee how Pixera keeps help center, onboarding, a\": 2,\n    \"Use CaseScreenshot Annotation ToolLearn how to add arrows, labels, and clear pro\": 2,\n    \"PrivacyRedact Screenshots on MacSee how Pixera protects emails, API keys, custom\": 2,\n    \"StylingScreenshot BackgroundsUse blur, gradients, and adaptive insets to make sc\": 2,\n    \"ComparisonPixera vs CleanShot XCompare polished still-image workflows, annotatio\": 2,\n    \"ComparisonPixera vs ShottrCompare Pixera with Shottr across backgrounds, annotat\": 2,\n    \"ComparisonPixera vs SnagitCompare Pixera with Snagit across documentation workfl\": 2,\n    \"ComparisonPixera vs XnapperCompare Pixera with Xnapper across styling workflow, \": 2\n  },\n  \"link_distribution\": {\n    \"min\": 6,\n    \"max\": 11,\n    \"avg\": 7.6\n  },\n  \"orphan_candidates\": [],\n  \"nofollow_links\": [],\n  \"issues\": [],\n  \"recommendations\": [],\n  \"error\": null\n}\n",
-        "status": "ok"
+      {
+        "path": "blog/documentation-screenshots-examples-2026-04-10.html",
+        "status": "created",
+        "title": "Documentation screenshots for product docs and help centers: headline, callout, and annotation examples",
+        "url": "https://pixeratools.com/blog/documentation-screenshots-examples-2026-04-10.html"
       },
-      "llms": {
-        "output": "llms.txt Check \u2014 https://pixeratools.com/llms.txt\n==================================================\nStatus: \u2705 Found (HTTP 200)\nTitle: Pixera\nDescription: Pixera is a macOS screenshot editor for styling, annotation, privacy redaction, and polished export-ready screenshots.\nSections: 5\nLinks: 14\nQuality Score: 100/100\n\nllms-full.txt: \u2705 Found\n",
-        "status": "ok"
+      {
+        "path": "blog/documentation-screenshots-mistakes-2026-04-10.html",
+        "status": "created",
+        "title": "Documentation screenshots for product docs and help centers: mistakes that hurt CTR and trust",
+        "url": "https://pixeratools.com/blog/documentation-screenshots-mistakes-2026-04-10.html"
       },
-      "pagespeed_mobile": {
-        "output": "{\n  \"url\": \"https://pixeratools.com\",\n  \"strategy\": \"mobile\",\n  \"performance_score\": null,\n  \"metrics\": {},\n  \"opportunities\": [],\n  \"diagnostics\": [],\n  \"field_data_available\": false,\n  \"error\": \"Rate limited by Google API. Wait a few minutes or add an API key.\"\n}\n",
-        "status": "ok"
-      },
-      "robots": {
-        "output": "robots.txt Analysis \u2014 https://pixeratools.com/robots.txt\n==================================================\nStatus: 200\n\nSitemaps (1):\n  \u2022 https://pixeratools.com/sitemap.xml\n\nUser-Agents (12):\n  *: 0 disallow, 1 allow\n  GPTBot: 0 disallow, 1 allow\n  ChatGPT-User: 0 disallow, 1 allow\n  ClaudeBot: 0 disallow, 1 allow\n  PerplexityBot: 0 disallow, 1 allow\n  Google-Extended: 0 disallow, 1 allow\n  Applebot-Extended: 0 disallow, 1 allow\n  Bytespider: 0 disallow, 1 allow\n  CCBot: 0 disallow, 1 allow\n  anthropic-ai: 0 disallow, 1 allow\n  FacebookBot: 0 disallow, 1 allow\n  Amazonbot: 0 disallow, 1 allow\n\nAI Crawler Management:\n  \u2139\ufe0f GPTBot: explicitly allowed\n  \u2139\ufe0f ChatGPT-User: explicitly allowed\n  \u2139\ufe0f ClaudeBot: explicitly allowed\n  \u2139\ufe0f PerplexityBot: explicitly allowed\n  \u2139\ufe0f Google-Extended: explicitly allowed\n  \u2139\ufe0f Applebot-Extended: explicitly allowed\n  \u2139\ufe0f Bytespider: explicitly allowed\n  \u2139\ufe0f CCBot: explicitly allowed\n  \u2139\ufe0f anthropic-ai: explicitly allowed\n  \u2139\ufe0f FacebookBot: explicitly allowed\n  \u2139\ufe0f Amazonbot: explicitly allowed\n",
-        "status": "ok"
-      },
-      "social_meta": {
-        "output": "Social Meta Tags \u2014 https://pixeratools.com\n==================================================\nScore: 100/100\n\nOpen Graph (7/7):\n  \u2705 og:title: Mac Screenshot Editor for Styled Screenshots | Pixera\n  \u2705 og:description: Pixera is a Mac screenshot editor for styling, annotating, a...\n  \u2705 og:image: https://pixeratools.com/social-card.jpg\n  \u2705 og:url: https://pixeratools.com\n  \u2705 og:type: website\n  \u2705 og:site_name: Pixera\n  \u2705 og:locale: en_US\n\nTwitter Card (6/6):\n  \u2705 twitter:card: summary_large_image\n  \u2705 twitter:title: Mac Screenshot Editor for Styled Screenshots | Pixera\n  \u2705 twitter:description: Pixera is a Mac screenshot editor for styling, annotating, a\n  \u2705 twitter:image: https://pixeratools.com/social-card.jpg\n  \u2705 twitter:site: @PixeraApp\n  \u2705 twitter:creator: @PixeraApp\n\nSocial Preview:\n  Title: Mac Screenshot Editor for Styled Screenshots | Pixera\n  Description: Pixera is a Mac screenshot editor for styling, annotating, and redacting screens\n  Image: https://pixeratools.com/social-card.jpg\n",
-        "status": "ok"
+      {
+        "path": "blog/documentation-screenshots-comparison-2026-04-10.html",
+        "status": "created",
+        "title": "Documentation screenshots for product docs and help centers: manual workflow vs dedicated screenshot tools",
+        "url": "https://pixeratools.com/blog/documentation-screenshots-comparison-2026-04-10.html"
       }
+    ],
+    "sitemap": {
+      "added": 5,
+      "updated": 0
     },
-    "html_report_path": "/Users/parthantala/Code/pixeratools/reports/seo/SEO-REPORT-2026-04-10.html",
-    "output_dir": "/Users/parthantala/Code/pixeratools/reports/seo/data/2026-04-10",
     "status": "ok",
-    "summary": {
-      "broken_links": 0,
-      "internal_link_issues": 0,
-      "llms_score": 100,
-      "overall_score": 82,
-      "pagespeed_error": "Rate limited by Google API. Wait a few minutes or add an API key.",
-      "robots_ok": true,
-      "social_score": 100
+    "target_size": 5,
+    "theme": {
+      "primary_keyword": "documentation screenshots",
+      "slug": "documentation-screenshots",
+      "topic": "documentation screenshots for product docs and help centers"
     }
+  },
+  "deep_audit": {
+    "commands": {},
+    "status": "skipped",
+    "summary": {}
   },
   "deep_mode": {
     "enabled": true,
     "reasons": [
-      "A major batch of content or growth pages is shipping in this run.",
-      "Technical findings conflicted with the prior content strategy.",
-      "Two or more content pages changed in the current run.",
-      "Homepage traffic concentration remains high while Search Console visibility is still partially blind."
+      "Two or more content pages changed in the current run."
     ]
   },
   "ga4": {
@@ -152,8 +158,7 @@
   "ga_property_id": "500585866",
   "git": {
     "analytics_files": [
-      "analytics-events.js",
-      "growth-pages.css"
+      "analytics-events.js"
     ],
     "changed_files": [
       {
@@ -165,35 +170,11 @@
         "status": "M"
       },
       {
-        "path": "growth-pages.css",
+        "path": "reports/seo/2026-04-10.md",
         "status": "M"
       },
       {
-        "path": "index.html",
-        "status": "M"
-      },
-      {
-        "path": "llm.txt",
-        "status": "M"
-      },
-      {
-        "path": "llms-full.txt",
-        "status": "M"
-      },
-      {
-        "path": "llms.txt",
-        "status": "M"
-      },
-      {
-        "path": "mac-screenshot-editor/index.html",
-        "status": "M"
-      },
-      {
-        "path": "redact-screenshots-mac/index.html",
-        "status": "M"
-      },
-      {
-        "path": "reports/seo/latest-deep.md",
+        "path": "reports/seo/data/2026-04-10/snapshot.json",
         "status": "M"
       },
       {
@@ -201,11 +182,7 @@
         "status": "M"
       },
       {
-        "path": "screenshot-annotation-tool-mac/index.html",
-        "status": "M"
-      },
-      {
-        "path": "screenshot-backgrounds-mac/index.html",
+        "path": "scripts/seo_growth_operator.py",
         "status": "M"
       },
       {
@@ -213,170 +190,157 @@
         "status": "M"
       },
       {
-        "path": ".gitignore",
+        "path": "blog/documentation-screenshots-checklist-2026-04-10.html",
         "status": "??"
       },
       {
-        "path": "blog/app-screenshots-for-app-store-2026.html",
+        "path": "blog/documentation-screenshots-comparison-2026-04-10.html",
         "status": "??"
       },
       {
-        "path": "blog/app-store-screenshot-sizes-2026.html",
+        "path": "blog/documentation-screenshots-examples-2026-04-10.html",
         "status": "??"
       },
       {
-        "path": "pixera-app-context.md",
+        "path": "blog/documentation-screenshots-mistakes-2026-04-10.html",
         "status": "??"
       },
       {
-        "path": "privacy.html",
+        "path": "blog/documentation-screenshots-workflow-2026-04-10.html",
         "status": "??"
       },
       {
-        "path": "reports/seo/2026-04-09-deep.md",
-        "status": "??"
-      },
-      {
-        "path": "reports/seo/2026-04-09.md",
-        "status": "??"
-      },
-      {
-        "path": "reports/seo/2026-04-10-deep.md",
-        "status": "??"
-      },
-      {
-        "path": "reports/seo/2026-04-10.md",
-        "status": "??"
-      },
-      {
-        "path": "reports/seo/SEO-REPORT.html",
-        "status": "??"
-      },
-      {
-        "path": "reports/seo/data/2026-04-05/broken-links.audit",
-        "status": "??"
-      },
-      {
-        "path": "reports/seo/data/2026-04-05/internal-links.json",
-        "status": "??"
-      },
-      {
-        "path": "reports/seo/data/2026-04-05/llms.audit",
-        "status": "??"
-      },
-      {
-        "path": "reports/seo/data/2026-04-05/pagespeed-mobile.json",
-        "status": "??"
-      },
-      {
-        "path": "reports/seo/data/2026-04-05/robots.txt.audit",
-        "status": "??"
-      },
-      {
-        "path": "reports/seo/data/2026-04-05/social-meta.audit",
-        "status": "??"
-      },
-      {
-        "path": "reports/seo/data/2026-04-09/broken-links.audit",
-        "status": "??"
-      },
-      {
-        "path": "reports/seo/data/2026-04-09/internal-links.json",
-        "status": "??"
-      },
-      {
-        "path": "reports/seo/data/2026-04-09/llms.audit",
-        "status": "??"
-      },
-      {
-        "path": "reports/seo/data/2026-04-09/pagespeed-mobile.json",
-        "status": "??"
-      },
-      {
-        "path": "reports/seo/data/2026-04-09/robots.txt.audit",
-        "status": "??"
-      },
-      {
-        "path": "reports/seo/data/2026-04-09/snapshot.json",
-        "status": "??"
-      },
-      {
-        "path": "reports/seo/data/2026-04-09/social-meta.audit",
-        "status": "??"
-      },
-      {
-        "path": "reports/seo/data/2026-04-10/broken-links.audit",
-        "status": "??"
-      },
-      {
-        "path": "reports/seo/data/2026-04-10/internal-links.json",
-        "status": "??"
-      },
-      {
-        "path": "reports/seo/data/2026-04-10/llms.audit",
-        "status": "??"
-      },
-      {
-        "path": "reports/seo/data/2026-04-10/pagespeed-mobile.json",
-        "status": "??"
-      },
-      {
-        "path": "reports/seo/data/2026-04-10/robots.txt.audit",
-        "status": "??"
-      },
-      {
-        "path": "reports/seo/data/2026-04-10/snapshot.json",
-        "status": "??"
-      },
-      {
-        "path": "reports/seo/data/2026-04-10/social-meta.audit",
-        "status": "??"
-      },
-      {
-        "path": "scripts/__pycache__/seo_growth_operator.cpython-311.pyc",
-        "status": "??"
-      },
-      {
-        "path": "scripts/seo_growth_operator.py",
+        "path": "scripts/__pycache__/seo_growth_operator.cpython-312.pyc",
         "status": "??"
       }
     ],
     "content_paths": [
-      "blog/app-screenshots-for-app-store-2026.html",
-      "blog/app-store-screenshot-sizes-2026.html",
-      "index.html",
-      "mac-screenshot-editor/index.html",
-      "privacy.html",
-      "redact-screenshots-mac/index.html",
-      "screenshot-annotation-tool-mac/index.html",
-      "screenshot-backgrounds-mac/index.html"
+      "blog/documentation-screenshots-checklist-2026-04-10.html",
+      "blog/documentation-screenshots-comparison-2026-04-10.html",
+      "blog/documentation-screenshots-examples-2026-04-10.html",
+      "blog/documentation-screenshots-mistakes-2026-04-10.html",
+      "blog/documentation-screenshots-workflow-2026-04-10.html"
     ],
     "crawl_files": [
-      "llm.txt",
-      "llms-full.txt",
-      "llms.txt",
       "sitemap.xml"
     ],
     "ignored_noise": [
       ".DS_Store"
     ],
     "pages_shipped": [
-      "blog/app-screenshots-for-app-store-2026.html",
-      "blog/app-store-screenshot-sizes-2026.html",
-      "mac-screenshot-editor/index.html",
-      "privacy.html",
-      "redact-screenshots-mac/index.html",
-      "screenshot-annotation-tool-mac/index.html",
-      "screenshot-backgrounds-mac/index.html"
+      "blog/documentation-screenshots-checklist-2026-04-10.html",
+      "blog/documentation-screenshots-comparison-2026-04-10.html",
+      "blog/documentation-screenshots-examples-2026-04-10.html",
+      "blog/documentation-screenshots-mistakes-2026-04-10.html",
+      "blog/documentation-screenshots-workflow-2026-04-10.html"
     ]
   },
   "gsc": {
-    "message": "The Search Console API is disabled for Google Cloud project `351755032737` or has not been enabled yet. Enable `searchconsole.googleapis.com`, then retry with a verified property that this service account can access.",
-    "site": "https://pixeratools.com/",
-    "status": "error",
-    "status_code": 403
+    "site": "sc-domain:pixeratools.com",
+    "status": "ok",
+    "top_pages_30d": [
+      {
+        "clicks": 4,
+        "ctr": 0.0245,
+        "impressions": 163,
+        "page": "https://pixeratools.com/",
+        "position": 5.83
+      },
+      {
+        "clicks": 0,
+        "ctr": 0.0,
+        "impressions": 1,
+        "page": "https://pixeratools.com/_next/static/media/sf1.91d46547.png",
+        "position": 5.0
+      },
+      {
+        "clicks": 0,
+        "ctr": 0.0,
+        "impressions": 6,
+        "page": "https://pixeratools.com/mac-screenshot-editor/",
+        "position": 7.17
+      },
+      {
+        "clicks": 0,
+        "ctr": 0.0,
+        "impressions": 4,
+        "page": "https://pixeratools.com/redact-screenshots-mac/",
+        "position": 7.0
+      },
+      {
+        "clicks": 0,
+        "ctr": 0.0,
+        "impressions": 6,
+        "page": "https://pixeratools.com/screenshot-annotation-tool-mac/",
+        "position": 10.67
+      },
+      {
+        "clicks": 0,
+        "ctr": 0.0,
+        "impressions": 2,
+        "page": "https://pixeratools.com/screenshot-backgrounds-mac/",
+        "position": 2.5
+      }
+    ],
+    "top_queries_30d": [
+      {
+        "clicks": 0,
+        "ctr": 0.0,
+        "impressions": 4,
+        "position": 1.0,
+        "query": "\"pixera\" -\"defi\" -\"nft\" -\"blockchain\" -\"coin\" -\"crypto\" -\"fotokitap\" -\"photo book\" -\"photobook\" -\"token\" -site:reddit.com -site:twitter.com -site:x.com -site:wykop.pl -site:tripadvisor.com -site:youtube.com -site:yelp.com -site:booking.com -site:facebook.com -site:instagram.com -site:tiktok.com"
+      },
+      {
+        "clicks": 0,
+        "ctr": 0.0,
+        "impressions": 14,
+        "position": 5.57,
+        "query": "mac screenshot \"inset\""
+      },
+      {
+        "clicks": 0,
+        "ctr": 0.0,
+        "impressions": 1,
+        "position": 28.0,
+        "query": "pixera"
+      },
+      {
+        "clicks": 0,
+        "ctr": 0.0,
+        "impressions": 9,
+        "position": 3.67,
+        "query": "pixera mac"
+      },
+      {
+        "clicks": 0,
+        "ctr": 0.0,
+        "impressions": 3,
+        "position": 19.33,
+        "query": "pixira"
+      }
+    ],
+    "totals_14d": {
+      "clicks": 0,
+      "ctr": 0,
+      "impressions": 72,
+      "position": 6.791666666666667
+    },
+    "totals_30d": {
+      "clicks": 4,
+      "ctr": 0.023529411764705882,
+      "impressions": 170,
+      "position": 6.017647058823529
+    },
+    "window_14d": {
+      "endDate": "2026-04-09",
+      "startDate": "2026-03-27"
+    },
+    "window_30d": {
+      "endDate": "2026-04-09",
+      "startDate": "2026-03-11"
+    }
   },
-  "locale_now": "2026-04-10T00:05:22.409212-07:00",
+  "locale_now": "2026-04-10T01:52:12.863123-07:00",
   "locale_tz": "America/Los_Angeles",
   "proposed_upgrade": null,
   "report_date": "2026-04-10",
@@ -385,28 +349,16 @@
       "begin_checkout_14d": 1.0,
       "download_installer_14d": 15.0,
       "generate_lead_14d": 0,
-      "gsc_clicks_14d": 0,
-      "gsc_ctr_14d": 0,
-      "gsc_impressions_14d": 0,
+      "gsc_clicks_14d": 0.0,
+      "gsc_ctr_14d": 0.0,
+      "gsc_impressions_14d": 72.0,
       "open_guide_14d": 13.0,
       "view_pricing_14d": 31.0
     },
-    "last_three_reports": [
-      {
-        "begin_checkout_14d": 1.0,
-        "download_installer_14d": 15.0,
-        "generate_lead_14d": 0,
-        "gsc_clicks_14d": 0,
-        "gsc_ctr_14d": 0,
-        "gsc_impressions_14d": 0,
-        "open_guide_14d": 13.0,
-        "run_date": "2026-04-09",
-        "view_pricing_14d": 31.0
-      }
-    ],
+    "last_three_reports": [],
     "stagnation": false,
     "stagnation_reasons": []
   },
   "site_url": "https://pixeratools.com",
-  "strategy_shift": "Stopped waiting for guide impressions before expanding. This run restores live App Store demand already hitting missing URLs, adds entity schema, and shifts the homepage from guide-only distribution to guides plus resource capture."
+  "strategy_shift": ""
 }

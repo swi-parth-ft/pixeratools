@@ -1,21 +1,21 @@
 # Pixera Growth Operator Run
 
 Date: 2026-04-10
-User locale time: `2026-04-10T00:05:22.409212-07:00`
+User locale time: `2026-04-10T01:52:12.863123-07:00`
 Repo: `/Users/parthantala/Code/pixeratools`
 Domain: `https://pixeratools.com`
 
 ## Refresh Status
 
 - GA4: `ok` on property `500585866` with measurement ID `G-8233939FQQ`.
-- Google Search Console: `error`. The Search Console API is disabled for Google Cloud project `351755032737` or has not been enabled yet. Enable `searchconsole.googleapis.com`, then retry with a verified property that this service account can access.
+- Google Search Console: `ok` on `sc-domain:pixeratools.com`.
 - Checkout analytics: `unavailable`. No Lemon Squeezy API key was present in the environment.
 
 ## 14-Day Trend
 
-- GSC impressions: unavailable
-- GSC clicks: unavailable
-- GSC CTR: unavailable
+- GSC impressions: 72
+- GSC clicks: 0
+- GSC CTR: 0.00%
 - `open_guide`: 13
 - `open_resource`: 0
 - `view_pricing`: 31
@@ -33,8 +33,7 @@ Domain: `https://pixeratools.com`
 
 ## Self-Review
 
-- Last stored snapshots:
-  - 2026-04-09: clicks=0, impressions=0, CTR=0.00%, open_guide=13, begin_checkout=1
+- No prior machine-readable snapshots were available, so this run establishes the baseline for future 3-run comparisons.
 - Stagnation status: `no confirmed 3-run flat/down pattern yet`.
 
 ## Traffic Concentration
@@ -52,33 +51,32 @@ Domain: `https://pixeratools.com`
 
 ## Actions Shipped In This Run
 
-- `blog/app-screenshots-for-app-store-2026.html`
-- `blog/app-store-screenshot-sizes-2026.html`
-- `mac-screenshot-editor/index.html`
-- `privacy.html`
-- `redact-screenshots-mac/index.html`
-- `screenshot-annotation-tool-mac/index.html`
-- `screenshot-backgrounds-mac/index.html`
-- Crawl-file changes: `llm.txt`, `llms-full.txt`, `llms.txt`, `sitemap.xml`
-- Funnel/instrumentation changes: `analytics-events.js`, `growth-pages.css`
+- Daily cluster: `documentation-screenshots` with 5 new pages and 0 existing pages.
+- Cluster sitemap updates: 5 added, 0 updated.
+- `blog/documentation-screenshots-workflow-2026-04-10.html` (created)
+- `blog/documentation-screenshots-checklist-2026-04-10.html` (created)
+- `blog/documentation-screenshots-examples-2026-04-10.html` (created)
+- `blog/documentation-screenshots-mistakes-2026-04-10.html` (created)
+- `blog/documentation-screenshots-comparison-2026-04-10.html` (created)
+- `blog/documentation-screenshots-checklist-2026-04-10.html`
+- `blog/documentation-screenshots-comparison-2026-04-10.html`
+- `blog/documentation-screenshots-examples-2026-04-10.html`
+- `blog/documentation-screenshots-mistakes-2026-04-10.html`
+- `blog/documentation-screenshots-workflow-2026-04-10.html`
+- Crawl-file changes: `sitemap.xml`
+- Funnel/instrumentation changes: `analytics-events.js`
 
 ## Strategy
 
 - Deep audit status: `on`.
-- Deep-audit reason: A major batch of content or growth pages is shipping in this run.
-- Deep-audit reason: Technical findings conflicted with the prior content strategy.
 - Deep-audit reason: Two or more content pages changed in the current run.
-- Deep-audit reason: Homepage traffic concentration remains high while Search Console visibility is still partially blind.
-- Strategy shift: Stopped waiting for guide impressions before expanding. This run restores live App Store demand already hitting missing URLs, adds entity schema, and shifts the homepage from guide-only distribution to guides plus resource capture.
 
 ## Blockers
 
-- Search Console refresh is blocked until this service account has access to a verified Search Console property.
 - Checkout revenue remains partially blind because Lemon Squeezy API credentials are not available in the environment.
-- PageSpeed evidence is incomplete for this run: Rate limited by Google API. Wait a few minutes or add an API key.
 
 ## Next Bets
 
 1. Deploy the current content and crawl-file batch so GA4 can start distributing traffic beyond the homepage.
-2. Grant this service account Search Console access or verify the domain property so impressions, clicks, and CTR can be refreshed directly.
+2. Improve CTR on the top query/page pairs by tightening titles and meta descriptions on pages with impressions but low clicks.
 3. Add Lemon Squeezy purchase tracking or API credentials so `begin_checkout` can be tied to actual revenue.

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://pixeratools.com/</loc>
@@ -50,6 +50,26 @@
   </url>
   <url>
     <loc>https://pixeratools.com/privacy.html</loc>
+    <lastmod>2026-04-10</lastmod>
+  </url>
+  <url>
+    <loc>https://pixeratools.com/blog/documentation-screenshots-workflow-2026-04-10.html</loc>
+    <lastmod>2026-04-10</lastmod>
+  </url>
+  <url>
+    <loc>https://pixeratools.com/blog/documentation-screenshots-checklist-2026-04-10.html</loc>
+    <lastmod>2026-04-10</lastmod>
+  </url>
+  <url>
+    <loc>https://pixeratools.com/blog/documentation-screenshots-examples-2026-04-10.html</loc>
+    <lastmod>2026-04-10</lastmod>
+  </url>
+  <url>
+    <loc>https://pixeratools.com/blog/documentation-screenshots-mistakes-2026-04-10.html</loc>
+    <lastmod>2026-04-10</lastmod>
+  </url>
+  <url>
+    <loc>https://pixeratools.com/blog/documentation-screenshots-comparison-2026-04-10.html</loc>
     <lastmod>2026-04-10</lastmod>
   </url>
 </urlset>

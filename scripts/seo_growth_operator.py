@@ -35,6 +35,10 @@ DEFAULT_SITE_URL = "https://pixeratools.com"
 DEFAULT_GA_PROPERTY_ID = "500585866"
 DEFAULT_GA_MEASUREMENT_ID = "G-8233939FQQ"
 DEFAULT_KEY_FILE = REPO_ROOT / "keys" / "pixera-seo-automation.json"
+GOOGLE_READONLY_SCOPES = [
+    "https://www.googleapis.com/auth/analytics.readonly",
+    "https://www.googleapis.com/auth/webmasters.readonly",
+]
 DEFAULT_GSC_SITES = [
     "sc-domain:pixeratools.com",
     "https://pixeratools.com/",
@@ -244,6 +248,27 @@ def load_service_account(path: Path) -> dict[str, Any] | None:
     if not path.exists():
         return None
     return json.loads(path.read_text())
+
+
+def resolve_service_account(
+    cli_path: str,
+) -> tuple[dict[str, Any] | None, str | None, str | None]:
+    primary_path = Path(cli_path).expanduser()
+    service_account = load_service_account(primary_path)
+    if service_account:
+        return service_account, str(primary_path), None
+
+    env_path = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS", "").strip()
+    if env_path:
+        env_key_path = Path(env_path).expanduser()
+        service_account = load_service_account(env_key_path)
+        if service_account:
+            return service_account, str(env_key_path), None
+        return None, None, (
+            "GOOGLE_APPLICATION_CREDENTIALS is set but does not point to a readable service-account JSON."
+        )
+
+    return None, None, "No readable service-account key was found from --service-account-key or GOOGLE_APPLICATION_CREDENTIALS."
 
 
 def mint_google_access_token(service_account: dict[str, Any], scopes: list[str]) -> str:
@@ -730,6 +755,28 @@ def build_daily_content_cluster(
 
 
 def collect_git_state() -> dict[str, Any]:
+    branch = run_command(
+        ["git", "rev-parse", "--abbrev-ref", "HEAD"],
+        cwd=REPO_ROOT,
+    ).strip()
+
+    ahead_of_main = 0
+    behind_main = 0
+    main_compare_status = "unknown"
+    try:
+        run_command(["git", "rev-parse", "--verify", "origin/main"], cwd=REPO_ROOT)
+        counts = run_command(
+            ["git", "rev-list", "--left-right", "--count", "HEAD...origin/main"],
+            cwd=REPO_ROOT,
+        ).strip()
+        if counts:
+            left, right = counts.split()
+            ahead_of_main = int(left)
+            behind_main = int(right)
+            main_compare_status = "ok"
+    except Exception:
+        main_compare_status = "unavailable"
+
     status_output = run_command(
         ["git", "status", "--short", "--untracked-files=all"],
         cwd=REPO_ROOT,
@@ -773,6 +820,10 @@ def collect_git_state() -> dict[str, Any]:
     ]
 
     return {
+        "branch": branch,
+        "ahead_of_main": ahead_of_main,
+        "behind_main": behind_main,
+        "main_compare_status": main_compare_status,
         "changed_files": changed_files,
         "pages_shipped": sorted(set(pages_shipped)),
         "content_paths": sorted(set(content_paths)),
@@ -1024,6 +1075,58 @@ def humanize_gsc_error(status_code: int, body: str) -> str:
     return compact
 
 
+def humanize_ga4_error(status_code: int, body: str) -> str:
+    compact = compact_http_error(body)
+    if "has not been used in project" in compact or "analyticsdata.googleapis.com" in compact:
+        return (
+            "The GA4 Data API is disabled or unavailable for the project tied to this service account."
+        )
+    if status_code == 403:
+        return "The service account does not currently have GA4 permission on the configured property."
+    return compact
+
+
+def unavailable_ga4(
+    property_id: str,
+    measurement_id: str,
+    message: str,
+    *,
+    status: str = "error",
+    status_code: int | None = None,
+) -> dict[str, Any]:
+    return {
+        "status": status,
+        "property_id": property_id,
+        "measurement_id": measurement_id,
+        "message": message,
+        "status_code": status_code,
+        "event_totals": {"7d": {}, "14d": {}, "30d": {}},
+        "top_pages_30d": [],
+        "homepage_concentration_30d": 0.0,
+        "site_views_30d": 0,
+        "account_summary_count": 0,
+    }
+
+
+def unavailable_gsc(
+    message: str,
+    *,
+    status: str = "error",
+    site: str = "",
+    status_code: int | None = None,
+) -> dict[str, Any]:
+    return {
+        "status": status,
+        "site": site,
+        "message": message,
+        "status_code": status_code,
+        "totals_14d": {"clicks": 0, "impressions": 0, "ctr": 0, "position": 0},
+        "totals_30d": {"clicks": 0, "impressions": 0, "ctr": 0, "position": 0},
+        "top_queries_30d": [],
+        "top_pages_30d": [],
+    }
+
+
 def collect_checkout(locale_tz: str) -> dict[str, Any]:
     api_key = get_env_value(CHECKOUT_API_KEY_VARS)
     store_id = get_env_value(CHECKOUT_STORE_ID_VARS)
@@ -1136,25 +1239,37 @@ def compare_snapshots(history: list[dict[str, Any]], current_snapshot: dict[str,
 
     stagnation_reasons = []
     stagnation = False
+    trend_confidence = "low"
     if len(previous) >= 3:
         last_three = previous[-3:]
-        key_metrics = [
-            ("gsc_clicks_14d", ["gsc", "totals_14d", "clicks"]),
-            ("open_guide_14d", ["ga4", "event_totals", "14d", "open_guide"]),
-            ("begin_checkout_14d", ["ga4", "event_totals", "14d", "begin_checkout"]),
-        ]
-        for label, path in key_metrics:
-            values = [metric_from_snapshot(item, path) for item in last_three]
-            if values and all(values[index] <= values[index - 1] for index in range(1, len(values))):
-                stagnation = True
-                stagnation_reasons.append(
-                    f"{label} was flat or down across the last {len(values)} report snapshots: {values}"
-                )
+        if all(
+            item.get("ga4", {}).get("status") == "ok"
+            and item.get("gsc", {}).get("status") == "ok"
+            for item in last_three
+        ):
+            trend_confidence = "high"
+            key_metrics = [
+                ("gsc_clicks_14d", ["gsc", "totals_14d", "clicks"]),
+                ("open_guide_14d", ["ga4", "event_totals", "14d", "open_guide"]),
+                ("begin_checkout_14d", ["ga4", "event_totals", "14d", "begin_checkout"]),
+            ]
+            for label, path in key_metrics:
+                values = [metric_from_snapshot(item, path) for item in last_three]
+                if values and all(values[index] <= values[index - 1] for index in range(1, len(values))):
+                    stagnation = True
+                    stagnation_reasons.append(
+                        f"{label} was flat or down across the last {len(values)} report snapshots: {values}"
+                    )
+        else:
+            stagnation_reasons.append(
+                "Trend confidence is low because one or more of the last three snapshots had incomplete GA4 or Search Console refresh."
+            )
 
     return {
         "last_three_reports": comparison_rows,
         "stagnation": stagnation,
         "stagnation_reasons": stagnation_reasons,
+        "trend_confidence": trend_confidence,
         "current_metrics": {
             "gsc_clicks_14d": metric_from_snapshot(current_snapshot, ["gsc", "totals_14d", "clicks"]),
             "gsc_impressions_14d": metric_from_snapshot(current_snapshot, ["gsc", "totals_14d", "impressions"]),
@@ -1461,6 +1576,16 @@ def render_growth_report(snapshot: dict[str, Any]) -> str:
         "",
         f"- GA4: `{ga4['status']}` on property `{ga4['property_id']}` with measurement ID `{snapshot['ga_measurement_id']}`.",
     ]
+    if snapshot.get("measurement_auth", {}).get("status") == "ok":
+        report_lines.append(
+            f"- Measurement auth: `ok` via `{snapshot['measurement_auth'].get('credential_path', 'service account')}`."
+        )
+    else:
+        report_lines.append(
+            f"- Measurement auth: `{snapshot.get('measurement_auth', {}).get('status', 'error')}`. {snapshot.get('measurement_auth', {}).get('message', 'No auth diagnostics were captured.')}"
+        )
+    if ga4.get("status") != "ok":
+        report_lines.append(f"- GA4 detail: {ga4.get('message', 'No GA4 detail was captured.')}")
 
     if gsc.get("status") == "ok":
         report_lines.append(f"- Google Search Console: `ok` on `{gsc['site']}`.")
@@ -1521,6 +1646,11 @@ def render_growth_report(snapshot: dict[str, Any]) -> str:
     else:
         report_lines.append("- No prior machine-readable snapshots were available, so this run establishes the baseline for future 3-run comparisons.")
 
+    if self_review.get("trend_confidence") != "high":
+        report_lines.append("- Trend confidence: `low` (one or more recent snapshots had incomplete GA4 or Search Console refresh).")
+    else:
+        report_lines.append("- Trend confidence: `high`.")
+
     if self_review["stagnation"]:
         report_lines.append(f"- Stagnation status: `yes`. {'; '.join(self_review['stagnation_reasons'])}")
     else:
@@ -1579,6 +1709,9 @@ def render_growth_report(snapshot: dict[str, Any]) -> str:
         )
     else:
         report_lines.append("- Funnel/instrumentation changes: none detected in git status.")
+    report_lines.append(
+        f"- Git branch state: branch=`{git_state.get('branch', 'unknown')}`, ahead_of_main={git_state.get('ahead_of_main', 0)}, behind_main={git_state.get('behind_main', 0)}."
+    )
 
     report_lines.extend(
         [
@@ -1602,8 +1735,14 @@ def render_growth_report(snapshot: dict[str, Any]) -> str:
     )
     if gsc.get("status") != "ok":
         report_lines.append("- Search Console refresh is blocked until this service account has access to a verified Search Console property.")
+    if ga4.get("status") != "ok":
+        report_lines.append("- GA4 refresh is blocked; verify service-account access and Analytics Data API enablement for this property.")
     if checkout.get("status") != "ok":
         report_lines.append("- Checkout revenue remains partially blind because Lemon Squeezy API credentials are not available in the environment.")
+    if git_state.get("branch") != "main":
+        report_lines.append("- Local repo is not on `main`; content may not be deployed unless this branch is merged/pushed to `origin/main`.")
+    if git_state.get("behind_main", 0) > 0:
+        report_lines.append("- Local repo is behind `origin/main`; refresh local checkout before trusting report-to-code alignment.")
     if snapshot.get("deep_audit", {}).get("summary", {}).get("pagespeed_error"):
         report_lines.append(
             f"- PageSpeed evidence is incomplete for this run: {snapshot['deep_audit']['summary']['pagespeed_error']}"
@@ -1743,17 +1882,39 @@ def main() -> int:
     args = parse_args()
     report_now = today_in_timezone(args.locale_tz)
     report_date = report_now.date().isoformat()
-    service_account = load_service_account(Path(args.service_account_key))
-    if not service_account:
-        raise SystemExit(f"Service account key not found: {args.service_account_key}")
-
-    access_token = mint_google_access_token(
-        service_account,
-        scopes=[
-            "https://www.googleapis.com/auth/analytics.readonly",
-            "https://www.googleapis.com/auth/webmasters.readonly",
-        ],
+    service_account, credential_path, auth_error = resolve_service_account(
+        args.service_account_key
     )
+    access_token = None
+    measurement_auth = {
+        "status": "error",
+        "credential_path": credential_path,
+        "message": auth_error or "No measurement auth diagnostics were captured.",
+    }
+    if service_account:
+        try:
+            access_token = mint_google_access_token(
+                service_account,
+                scopes=GOOGLE_READONLY_SCOPES,
+            )
+            measurement_auth = {
+                "status": "ok",
+                "credential_path": credential_path,
+                "message": "Service-account token minted successfully.",
+            }
+        except HttpError as error:
+            measurement_auth = {
+                "status": "error",
+                "credential_path": credential_path,
+                "message": humanize_ga4_error(error.status_code, error.body),
+                "status_code": error.status_code,
+            }
+        except Exception as error:  # pragma: no cover - defensive only
+            measurement_auth = {
+                "status": "error",
+                "credential_path": credential_path,
+                "message": str(error),
+            }
 
     daily_cluster = build_daily_content_cluster(
         report_date=report_date,
@@ -1764,8 +1925,51 @@ def main() -> int:
     )
 
     git_state = collect_git_state()
-    ga4 = collect_ga4(access_token, args.ga_property_id, args.locale_tz)
-    gsc = collect_gsc(access_token, args.gsc_sites or DEFAULT_GSC_SITES, args.locale_tz)
+    if access_token:
+        try:
+            ga4 = collect_ga4(access_token, args.ga_property_id, args.locale_tz)
+        except HttpError as error:
+            ga4 = unavailable_ga4(
+                args.ga_property_id,
+                args.ga_measurement_id,
+                humanize_ga4_error(error.status_code, error.body),
+                status="error",
+                status_code=error.status_code,
+            )
+        except Exception as error:  # pragma: no cover - defensive only
+            ga4 = unavailable_ga4(
+                args.ga_property_id,
+                args.ga_measurement_id,
+                str(error),
+                status="error",
+            )
+        try:
+            gsc = collect_gsc(access_token, args.gsc_sites or DEFAULT_GSC_SITES, args.locale_tz)
+        except HttpError as error:
+            gsc = unavailable_gsc(
+                humanize_gsc_error(error.status_code, error.body),
+                status="error",
+                site=(args.gsc_sites or DEFAULT_GSC_SITES)[0],
+                status_code=error.status_code,
+            )
+        except Exception as error:  # pragma: no cover - defensive only
+            gsc = unavailable_gsc(
+                str(error),
+                status="error",
+                site=(args.gsc_sites or DEFAULT_GSC_SITES)[0],
+            )
+    else:
+        ga4 = unavailable_ga4(
+            args.ga_property_id,
+            args.ga_measurement_id,
+            measurement_auth["message"],
+            status="unavailable",
+        )
+        gsc = unavailable_gsc(
+            measurement_auth["message"],
+            status="unavailable",
+            site=(args.gsc_sites or DEFAULT_GSC_SITES)[0],
+        )
     checkout = collect_checkout(args.locale_tz)
 
     snapshot = {
@@ -1775,6 +1979,7 @@ def main() -> int:
         "site_url": args.site_url,
         "ga_property_id": args.ga_property_id,
         "ga_measurement_id": args.ga_measurement_id,
+        "measurement_auth": measurement_auth,
         "ga4": ga4,
         "gsc": gsc,
         "checkout": checkout,

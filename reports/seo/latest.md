@@ -1,13 +1,14 @@
 # Pixera Growth Operator Run
 
 Date: 2026-04-10
-User locale time: `2026-04-10T01:52:12.863123-07:00`
+User locale time: `2026-04-10T02:59:45.720815-07:00`
 Repo: `/Users/parthantala/Code/pixeratools`
 Domain: `https://pixeratools.com`
 
 ## Refresh Status
 
 - GA4: `ok` on property `500585866` with measurement ID `G-8233939FQQ`.
+- Measurement auth: `ok` via `/Users/parthantala/Code/pixeratools/keys/pixera-seo-automation.json`.
 - Google Search Console: `ok` on `sc-domain:pixeratools.com`.
 - Checkout analytics: `unavailable`. No Lemon Squeezy API key was present in the environment.
 
@@ -34,6 +35,7 @@ Domain: `https://pixeratools.com`
 ## Self-Review
 
 - No prior machine-readable snapshots were available, so this run establishes the baseline for future 3-run comparisons.
+- Trend confidence: `low` (one or more recent snapshots had incomplete GA4 or Search Console refresh).
 - Stagnation status: `no confirmed 3-run flat/down pattern yet`.
 
 ## Traffic Concentration
@@ -51,29 +53,26 @@ Domain: `https://pixeratools.com`
 
 ## Actions Shipped In This Run
 
-- Daily cluster: `documentation-screenshots` with 5 new pages and 0 existing pages.
-- Cluster sitemap updates: 5 added, 0 updated.
-- `blog/documentation-screenshots-workflow-2026-04-10.html` (created)
-- `blog/documentation-screenshots-checklist-2026-04-10.html` (created)
-- `blog/documentation-screenshots-examples-2026-04-10.html` (created)
-- `blog/documentation-screenshots-mistakes-2026-04-10.html` (created)
-- `blog/documentation-screenshots-comparison-2026-04-10.html` (created)
-- `blog/documentation-screenshots-checklist-2026-04-10.html`
-- `blog/documentation-screenshots-comparison-2026-04-10.html`
-- `blog/documentation-screenshots-examples-2026-04-10.html`
-- `blog/documentation-screenshots-mistakes-2026-04-10.html`
-- `blog/documentation-screenshots-workflow-2026-04-10.html`
-- Crawl-file changes: `sitemap.xml`
-- Funnel/instrumentation changes: `analytics-events.js`
+- Daily cluster: `documentation-screenshots` with 0 new pages and 5 existing pages.
+- Cluster sitemap updates: 0 added, 0 updated.
+- `blog/documentation-screenshots-workflow-2026-04-10.html` (existing)
+- `blog/documentation-screenshots-checklist-2026-04-10.html` (existing)
+- `blog/documentation-screenshots-examples-2026-04-10.html` (existing)
+- `blog/documentation-screenshots-mistakes-2026-04-10.html` (existing)
+- `blog/documentation-screenshots-comparison-2026-04-10.html` (existing)
+- No changed content pages were detected from git status at report time.
+- Crawl-file changes: none detected in git status.
+- Funnel/instrumentation changes: none detected in git status.
+- Git branch state: branch=`codex/seo-growth-operator`, ahead_of_main=2, behind_main=0.
 
 ## Strategy
 
-- Deep audit status: `on`.
-- Deep-audit reason: Two or more content pages changed in the current run.
+- Deep audit status: `off`.
 
 ## Blockers
 
 - Checkout revenue remains partially blind because Lemon Squeezy API credentials are not available in the environment.
+- Local repo is not on `main`; content may not be deployed unless this branch is merged/pushed to `origin/main`.
 
 ## Next Bets
 

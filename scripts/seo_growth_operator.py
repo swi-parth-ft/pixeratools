@@ -72,11 +72,6 @@ CONTENT_CLUSTER_SIZE_MIN = 4
 CONTENT_CLUSTER_SIZE_MAX = 5
 CLUSTER_THEMES = [
     {
-        "slug": "app-store-screenshots",
-        "topic": "App Store screenshots for iOS and Mac apps",
-        "primary_keyword": "app store screenshots",
-    },
-    {
         "slug": "documentation-screenshots",
         "topic": "documentation screenshots for product docs and help centers",
         "primary_keyword": "documentation screenshots",
@@ -1858,7 +1853,7 @@ def render_deep_report(snapshot: dict[str, Any]) -> str:
             "",
             "## Recommended Next Bets",
             "",
-            "1. Deploy the new App Store resource layer and privacy page so the live domain stops wasting existing demand on 404s.",
+            "1. Deploy the current guide and comparison content updates so the live domain captures more non-homepage intent.",
             "2. Restore Search Console visibility for this service account, then revisit CTR and impression deltas against the new pages.",
             "3. Close revenue attribution by wiring Lemon Squeezy purchase data into the same reporting loop.",
         ]

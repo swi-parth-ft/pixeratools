@@ -16,8 +16,7 @@
 - [Pixera vs Xnapper](https://pixeratools.com/pixera-vs-xnapper/)
 
 ## High-Intent Resources
-- [App Screenshots for the App Store in 2026](https://pixeratools.com/blog/app-screenshots-for-app-store-2026.html)
-- [App Store Screenshot Sizes for 2026](https://pixeratools.com/blog/app-store-screenshot-sizes-2026.html)
+- [Documentation screenshots workflow cluster](https://pixeratools.com/blog/documentation-screenshots-workflow-2026-04-10.html)
 - [Privacy](https://pixeratools.com/privacy.html)
 
 ## Product Summary

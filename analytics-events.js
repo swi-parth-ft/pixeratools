@@ -81,10 +81,7 @@
     "/pixera-vs-snagit/": "pixera-vs-snagit",
     "/pixera-vs-xnapper/": "pixera-vs-xnapper"
   };
-  var RESOURCE_PATHS = {
-    "/blog/app-screenshots-for-app-store-2026.html": "app-screenshots-for-app-store-2026",
-    "/blog/app-store-screenshot-sizes-2026.html": "app-store-screenshot-sizes-2026"
-  };
+  var RESOURCE_PATHS = {};
   var GUIDE_SECTION_HTML = [
     '<section id="guides" aria-label="Pixera screenshot workflow guides" class="bg-white py-20 sm:py-24">',
     '<div class="workflow-guides-shell">',

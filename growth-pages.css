@@ -865,6 +865,12 @@
   gap: 1.5rem;
 }
 
+.article-sidebar {
+  display: grid;
+  gap: 1.5rem;
+  align-content: start;
+}
+
 .article-prose,
 .article-card,
 .article-note,
@@ -939,7 +945,9 @@
 }
 
 .article-table-wrap {
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 .article-table {
@@ -1023,5 +1031,21 @@
   .article-grid {
     grid-template-columns: minmax(0, 1.35fr) minmax(19rem, 0.65fr);
     align-items: start;
+  }
+
+  .article-sidebar {
+    position: sticky;
+    top: 1.25rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .article-title {
+    font-size: clamp(2rem, 11vw, 2.75rem);
+    line-height: 1.05;
+  }
+
+  .article-table {
+    min-width: 52rem;
   }
 }

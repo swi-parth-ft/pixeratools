@@ -29,6 +29,11 @@ Pixera is the layer you use after capture when a screenshot needs to look intent
 - [Pixera vs Snagit](https://pixeratools.com/pixera-vs-snagit/) — comparison for documentation-heavy buyers weighing capture automation against a tighter still-image publishing workflow
 - [Pixera vs Xnapper](https://pixeratools.com/pixera-vs-xnapper/) — comparison for buyers choosing between styling-first screenshot apps
 
+## High-Intent Resources
+- [App Screenshots for the App Store in 2026](https://pixeratools.com/blog/app-screenshots-for-app-store-2026.html) — planning, sequencing, and polishing App Store screenshot sets on Mac
+- [App Store Screenshot Sizes for 2026](https://pixeratools.com/blog/app-store-screenshot-sizes-2026.html) — Apple-referenced screenshot size guide for iPhone, iPad, and Mac submissions
+- [Privacy](https://pixeratools.com/privacy.html) — privacy details for the website, app processing, analytics, and checkout providers
+
 ## Product and Conversion Links
 - [Download Pixera](https://pixeratools.com/Pixera_v1.7.dmg)
 - [Buy Pixera Premium](https://pixeratools.lemonsqueezy.com/buy/eaf1e1e6-77bc-4be5-8c72-f1c7635378a7)

@@ -15,6 +15,11 @@
 - [Pixera vs Snagit](https://pixeratools.com/pixera-vs-snagit/)
 - [Pixera vs Xnapper](https://pixeratools.com/pixera-vs-xnapper/)
 
+## High-Intent Resources
+- [App Screenshots for the App Store in 2026](https://pixeratools.com/blog/app-screenshots-for-app-store-2026.html)
+- [App Store Screenshot Sizes for 2026](https://pixeratools.com/blog/app-store-screenshot-sizes-2026.html)
+- [Privacy](https://pixeratools.com/privacy.html)
+
 ## Product Summary
 - macOS desktop app for polishing screenshots after capture
 - Blur, gradients, adaptive insets, rounded corners, and shadows

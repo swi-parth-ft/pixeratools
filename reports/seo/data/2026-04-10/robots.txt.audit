@@ -1,0 +1,33 @@
+robots.txt Analysis — https://pixeratools.com/robots.txt
+==================================================
+Status: 200
+
+Sitemaps (1):
+  • https://pixeratools.com/sitemap.xml
+
+User-Agents (12):
+  *: 0 disallow, 1 allow
+  GPTBot: 0 disallow, 1 allow
+  ChatGPT-User: 0 disallow, 1 allow
+  ClaudeBot: 0 disallow, 1 allow
+  PerplexityBot: 0 disallow, 1 allow
+  Google-Extended: 0 disallow, 1 allow
+  Applebot-Extended: 0 disallow, 1 allow
+  Bytespider: 0 disallow, 1 allow
+  CCBot: 0 disallow, 1 allow
+  anthropic-ai: 0 disallow, 1 allow
+  FacebookBot: 0 disallow, 1 allow
+  Amazonbot: 0 disallow, 1 allow
+
+AI Crawler Management:
+  ℹ️ GPTBot: explicitly allowed
+  ℹ️ ChatGPT-User: explicitly allowed
+  ℹ️ ClaudeBot: explicitly allowed
+  ℹ️ PerplexityBot: explicitly allowed
+  ℹ️ Google-Extended: explicitly allowed
+  ℹ️ Applebot-Extended: explicitly allowed
+  ℹ️ Bytespider: explicitly allowed
+  ℹ️ CCBot: explicitly allowed
+  ℹ️ anthropic-ai: explicitly allowed
+  ℹ️ FacebookBot: explicitly allowed
+  ℹ️ Amazonbot: explicitly allowed

@@ -9,6 +9,12 @@
       keywords: "mac screenshot editor, screenshot annotation tool mac, redact screenshots mac, screenshot backgrounds mac",
       canonical: "https://pixeratools.com/"
     },
+    "/index.html": {
+      title: "Mac Screenshot Editor for Styled Screenshots | Pixera",
+      description: "Pixera is a Mac screenshot editor for styling, annotating, and redacting screenshots with gradients, blur backgrounds, shadows, and export-ready layouts.",
+      keywords: "mac screenshot editor, screenshot annotation tool mac, redact screenshots mac, screenshot backgrounds mac",
+      canonical: "https://pixeratools.com/"
+    },
     "/mac-screenshot-editor/": {
       title: "Mac Screenshot Editor for Polished Images | Pixera",
       description: "Pixera is a Mac screenshot editor for polished screenshots with gradients, blur backgrounds, annotations, privacy redaction, and export-ready layouts.",
@@ -74,6 +80,10 @@
     "/pixera-vs-shottr/": "pixera-vs-shottr",
     "/pixera-vs-snagit/": "pixera-vs-snagit",
     "/pixera-vs-xnapper/": "pixera-vs-xnapper"
+  };
+  var RESOURCE_PATHS = {
+    "/blog/app-screenshots-for-app-store-2026.html": "app-screenshots-for-app-store-2026",
+    "/blog/app-store-screenshot-sizes-2026.html": "app-store-screenshot-sizes-2026"
   };
   var GUIDE_SECTION_HTML = [
     '<section id="guides" aria-label="Pixera screenshot workflow guides" class="bg-white py-20 sm:py-24">',
@@ -142,6 +152,46 @@
     '</div>',
     '</section>'
   ].join("");
+  var RESOURCE_SECTION_HTML = [
+    '<section id="resources" aria-label="Pixera app-store screenshot resources" class="bg-slate-50 py-20 sm:py-24">',
+    '<div class="workflow-guides-shell">',
+    '<div class="workflow-guides-intro">',
+    '<p class="workflow-guides-kicker">High-Intent Resources</p>',
+    '<h2 class="workflow-guides-title font-display">Catch the App Store screenshot demand already reaching the site.</h2>',
+    '<p class="workflow-guides-copy">These practical resources answer the commercial-intent searches that are already hitting Pixera. Use them to plan, size, and polish App Store screenshot sets on Mac without overselling what the product does.</p>',
+    '</div>',
+    '<div class="workflow-guides-grid workflow-guides-grid-resources">',
+    '<a class="workflow-guide-card workflow-resource-card" href="/blog/app-screenshots-for-app-store-2026.html">',
+    '<p class="workflow-guide-label">Workflow Resource</p>',
+    '<h3 class="workflow-guide-title font-display">App Screenshots for the App Store in 2026</h3>',
+    '<p class="workflow-guide-body">Plan a stronger screenshot sequence, keep copy readable, and polish each frame on Mac before you upload the final set.</p>',
+    '<span class="workflow-guide-cta">See the App Store screenshot guide</span>',
+    '</a>',
+    '<a class="workflow-guide-card workflow-resource-card" href="/blog/app-store-screenshot-sizes-2026.html">',
+    '<p class="workflow-guide-label">Reference</p>',
+    '<h3 class="workflow-guide-title font-display">App Store Screenshot Sizes for 2026</h3>',
+    '<p class="workflow-guide-body">Use a clean Apple-referenced size table for iPhone, iPad, and Mac screenshot sets before you export and upload.</p>',
+    '<span class="workflow-guide-cta">See the screenshot size reference</span>',
+    '</a>',
+    '</div>',
+    '</div>',
+    '</section>'
+  ].join("");
+  var PIXERA_ORGANIZATION_SCHEMA = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Pixera",
+    url: "https://pixeratools.com/",
+    logo: "https://pixeratools.com/icon-512.png",
+    description: "Pixera is a macOS screenshot editor for styling, annotation, privacy redaction, and polished export-ready screenshots.",
+    email: "hello@pixeratools.com"
+  };
+  var PIXERA_WEBSITE_SCHEMA = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Pixera",
+    url: "https://pixeratools.com/"
+  };
 
   function ensureGtag() {
     window.dataLayer = window.dataLayer || [];
@@ -160,6 +210,14 @@
   function normalizePath(pathname) {
     if (!pathname) {
       return "/";
+    }
+
+    if (pathname.charAt(pathname.length - 1) === "/") {
+      return pathname;
+    }
+
+    if (pathname.indexOf(".html") !== -1) {
+      return pathname;
     }
 
     return pathname.charAt(pathname.length - 1) === "/" ? pathname : pathname + "/";
@@ -189,6 +247,47 @@
     element.setAttribute(attribute, value);
   }
 
+  function upsertJsonLd(id, value) {
+    var element;
+
+    if (!value) {
+      return;
+    }
+
+    element = document.getElementById(id);
+
+    if (!element) {
+      element = document.createElement("script");
+      element.type = "application/ld+json";
+      element.id = id;
+      document.head.appendChild(element);
+    }
+
+    element.textContent = JSON.stringify(value);
+  }
+
+  function removeRestrictedSchema() {
+    var scripts = document.querySelectorAll('script[type="application/ld+json"]');
+
+    Array.prototype.forEach.call(scripts, function (script) {
+      try {
+        var value = JSON.parse(script.textContent || "{}");
+
+        if (value && (value["@type"] === "FAQPage" || value["@type"] === "HowTo")) {
+          script.parentNode.removeChild(script);
+        }
+      } catch (error) {
+        // Ignore invalid JSON-LD blocks; this function only removes known disallowed types.
+      }
+    });
+  }
+
+  function ensureEntitySchema() {
+    removeRestrictedSchema();
+    upsertJsonLd("pixera-organization-schema", PIXERA_ORGANIZATION_SCHEMA);
+    upsertJsonLd("pixera-website-schema", PIXERA_WEBSITE_SCHEMA);
+  }
+
   function syncMetadata() {
     var path = normalizePath(window.location.pathname);
     var metadata = PAGE_METADATA[path];
@@ -203,8 +302,14 @@
     upsertMeta('meta[name="keywords"]', "content", metadata.keywords);
     upsertMeta('meta[property="og:title"]', "content", metadata.title);
     upsertMeta('meta[property="og:description"]', "content", metadata.description);
+    upsertMeta('meta[property="og:image"]', "content", "https://pixeratools.com/social-card.jpg");
+    upsertMeta('meta[property="og:image:width"]', "content", "1200");
+    upsertMeta('meta[property="og:image:height"]', "content", "630");
+    upsertMeta('meta[property="og:locale"]', "content", "en_US");
+    upsertMeta('meta[property="og:site_name"]', "content", "Pixera");
     upsertMeta('meta[name="twitter:title"]', "content", metadata.title);
     upsertMeta('meta[name="twitter:description"]', "content", metadata.description);
+    upsertMeta('meta[name="twitter:image"]', "content", "https://pixeratools.com/social-card.jpg");
 
     canonical = document.head.querySelector('link[rel="canonical"]');
     if (!canonical) {
@@ -246,13 +351,37 @@
     features.insertAdjacentHTML("beforebegin", GUIDE_SECTION_HTML);
   }
 
+  function ensureResourceHub() {
+    var guides = document.getElementById("guides");
+    var features = document.getElementById("features");
+
+    if (normalizePath(window.location.pathname) !== "/" || document.getElementById("resources")) {
+      return;
+    }
+
+    if (guides && guides.parentNode) {
+      guides.insertAdjacentHTML("afterend", RESOURCE_SECTION_HTML);
+      return;
+    }
+
+    if (features && features.parentNode) {
+      features.insertAdjacentHTML("beforebegin", RESOURCE_SECTION_HTML);
+    }
+  }
+
   function stabilizeHomepage() {
     ensureGuideHub();
+    ensureResourceHub();
     window.setTimeout(ensureGuideHub, 0);
+    window.setTimeout(ensureResourceHub, 0);
     window.setTimeout(ensureGuideHub, 150);
+    window.setTimeout(ensureResourceHub, 150);
     window.setTimeout(ensureGuideHub, 600);
+    window.setTimeout(ensureResourceHub, 600);
     window.setTimeout(ensureGuideHub, 1500);
+    window.setTimeout(ensureResourceHub, 1500);
     window.setTimeout(ensureGuideHub, 3000);
+    window.setTimeout(ensureResourceHub, 3000);
   }
 
   function findSection(node) {
@@ -351,6 +480,7 @@
     initialized = true;
     stabilizeMetadata();
     stabilizeHomepage();
+    ensureEntitySchema();
 
     bindDelegatedClicks(function (node) {
       var href = getHref(node);
@@ -392,6 +522,18 @@
       return {
         cta_location: findSection(node),
         guide_slug: GUIDE_PATHS[guidePath],
+        link_url: node.href
+      };
+    });
+
+    bindDelegatedClicks(function (node) {
+      return !!RESOURCE_PATHS[getPathname(node)];
+    }, "open_resource", function (node) {
+      var resourcePath = getPathname(node);
+      return {
+        cta_location: findSection(node),
+        resource_slug: RESOURCE_PATHS[resourcePath],
+        resource_type: "blog_article",
         link_url: node.href
       };
     });

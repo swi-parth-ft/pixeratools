@@ -1,104 +1,84 @@
 # Pixera Growth Operator Run
 
 Date: 2026-04-10
-Current focus: push the comparison cluster into documentation-heavy buyers, strengthen descriptive internal links, and keep crawl readiness solid while live analytics access remains blocked.
+User locale time: `2026-04-10T00:05:22.409212-07:00`
+Repo: `/Users/parthantala/Code/pixeratools`
+Domain: `https://pixeratools.com`
 
-## Data Refresh Attempts
+## Refresh Status
 
-- GA4 refresh against property `500585866` failed on `2026-04-10` with `403 PERMISSION_DENIED` and `ACCESS_TOKEN_SCOPE_INSUFFICIENT` when calling `properties/500585866:runReport` for the last 14 days of `open_guide`, `view_pricing`, `begin_checkout`, `download_installer`, and `generate_lead`.
-- Google Search Console refresh again failed on `2026-04-10` with `403 PERMISSION_DENIED` and `ACCESS_TOKEN_SCOPE_INSUFFICIENT` when listing sites for the locally authenticated Google account token.
-- No Lemon Squeezy API key, purchase webhook sink, or checkout analytics export path was present in the repo or current environment.
-- Result: this run still could not refresh live impressions, clicks, CTR, `open_guide`, or purchase data. Decisions fell back to official competitor pages, site structure, local crawl evidence, and strong validation.
+- GA4: `ok` on property `500585866` with measurement ID `G-8233939FQQ`.
+- Google Search Console: `error`. The Search Console API is disabled for Google Cloud project `351755032737` or has not been enabled yet. Enable `searchconsole.googleapis.com`, then retry with a verified property that this service account can access.
+- Checkout analytics: `unavailable`. No Lemon Squeezy API key was present in the environment.
 
-## Last 3 Report Comparison
+## 14-Day Trend
 
-- `2026-04-08`: shifted into buyer-entry pages by shipping docs plus CleanShot X and Xnapper comparisons, expanded the homepage guide hub, and removed `FAQPage` JSON-LD from the commercial site.
-- `2026-04-09`: extended the comparison cluster with `https://pixeratools.com/pixera-vs-shottr/`, expanded the homepage guide hub again, and standardized public social meta fields.
-- `2026-04-10`: added `https://pixeratools.com/pixera-vs-snagit/`, expanded the homepage guide hub to nine cards, and replaced the lingering generic related-page CTA copy with descriptive page-title anchors across the guide/comparison cluster.
-- Trailing 14-day trend status: unavailable. GA4 and Search Console refresh remained blocked, so there is still no source-backed 14-day trend for impressions, clicks, CTR, or funnel events in this run.
-- Stagnation status: confirmed measurement stagnation across three consecutive runs. Live movement is still unknown, and that repeated blind spot triggered a deeper strategy review on `Friday, 2026-04-10`.
+- GSC impressions: unavailable
+- GSC clicks: unavailable
+- GSC CTR: unavailable
+- `open_guide`: 13
+- `open_resource`: 0
+- `view_pricing`: 31
+- `begin_checkout`: 1
+- `download_installer`: 15
+- `generate_lead`: 0
 
-## Deep Audit Status
+## Funnel Progression
 
-- Deep audit was triggered on `Friday, 2026-04-10` even though this is not the scheduled Sunday audit run.
-- Reason:
-  - GA4 and GSC have both failed with the same scope error for three consecutive runs.
-  - Shipping another generic page without challenging strategy would have been weaker than testing the next buyer-intent branch.
-- Strategy shift:
-  - move one step beyond styling-first screenshot peers into the documentation-heavy incumbent query space with Snagit
-  - clean up remaining generic internal-link anchors so the cluster uses stronger descriptive page-title link text instead of vague `See the ...` copy
+- Event ratios are directional only. The current GA4 setup tracks page and CTA events, not stitched user-level funnel sessions yet.
+- `open_guide` -> `view_pricing`: 31/13 (238.5%)
+- `view_pricing` -> `begin_checkout`: 1/31 (3.2%)
+- `begin_checkout` -> `download_installer`: 15/1 (1500.0%)
+- `download_installer` -> `generate_lead`: 0/15 (0.0%)
 
-## Keyword And Strategy Notes
+## Self-Review
 
-- Manual keyword work and page selection in this run prioritized:
-  - `pixera vs snagit`
-  - `snagit alternative mac`
-  - `documentation screenshots tool`
-  - `snagit documentation workflow`
-- Official competitor sources checked on `2026-04-10`:
-  - [TechSmith Snagit store](https://www.techsmith.com/store/snagit)
-  - [TechSmith Step Capture tutorial](https://www.techsmith.com/learn/tutorials/snagit/step-capture/)
-- Strategy conclusion from the review:
-  - the cluster already covered styling-first alternatives
-  - the bigger missing buyer query was the documentation incumbent that combines capture, step guides, and smart redaction
-  - Snagit was the cleanest next branch because the official product pages directly align with docs, onboarding, and help-center workflows
+- Last stored snapshots:
+  - 2026-04-09: clicks=0, impressions=0, CTR=0.00%, open_guide=13, begin_checkout=1
+- Stagnation status: `no confirmed 3-run flat/down pattern yet`.
 
-## Changes Implemented
+## Traffic Concentration
 
-- Added one new indexable comparison page:
-  - `https://pixeratools.com/pixera-vs-snagit/`
-- Expanded the homepage guide hub from eight cards to nine so the Snagit comparison inherits direct homepage visibility immediately.
-- Updated `analytics-events.js` metadata routing and `GUIDE_PATHS` so the new page participates in `open_guide` discovery flow and metadata stabilization.
-- Added new contextual internal links into the Snagit comparison from:
-  - `https://pixeratools.com/documentation-screenshots-mac/`
-  - `https://pixeratools.com/screenshot-annotation-tool-mac/`
-  - `https://pixeratools.com/redact-screenshots-mac/`
-  - `https://pixeratools.com/mac-screenshot-editor/`
-- Replaced remaining generic related-page CTA text across the public guide/comparison pages with descriptive page-title anchors.
-- Updated `sitemap.xml`, `llm.txt`, `llms.txt`, and `llms-full.txt` to reflect the larger comparison inventory and the pricing-localization guardrail.
+- Homepage share of tracked page views over the last 30 days: 73.6%
+- Top GA4 page paths in the last 30 days:
+- `/`: 95 views, 81 sessions, 66 users
+- `/mac-screenshot-editor/`: 14 views, 4 sessions, 4 users
+- `/screenshot-annotation-tool-mac/`: 12 views, 3 sessions, 2 users
+- `/redact-screenshots-mac/`: 2 views, 3 sessions, 2 users
+- `/screenshot-backgrounds-mac/`: 2 views, 2 sessions, 2 users
+- `/blog/app-screenshots-for-app-store-2026.html`: 1 views, 2 sessions, 1 users
+- `/contact`: 1 views, 1 sessions, 1 users
+- `/index.html`: 1 views, 1 sessions, 1 users
 
-## Validation
+## Actions Shipped In This Run
 
-- `git diff --check` passed.
-- `xmllint --noout sitemap.xml` passed.
-- `robots_checker.py http://127.0.0.1:4210` passed; all targeted AI crawlers remain explicitly allowed.
-- `llms_txt_checker.py http://127.0.0.1:4210` scored `100/100`.
-- `internal_links.py http://127.0.0.1:4210 --depth 1 --max-pages 60 --json` found:
-  - `84` internal links
-  - no orphan candidates
-  - `6` incoming links for `/pixera-vs-snagit/`
-  - average link distribution `7.6`
-- `broken_links.py http://127.0.0.1:4210 --workers 5` found `0` broken links and `1` redirect.
-- `social_meta.py` scored `100/100` for:
-  - `http://127.0.0.1:4210`
-  - `http://127.0.0.1:4210/pixera-vs-snagit/`
-- `generate_report.py http://127.0.0.1:4210 --output reports/seo/SEO-REPORT-2026-04-10.html` saved an HTML audit dashboard and returned an overall score of `72/100`.
-- Environment limitation:
-  - `pagespeed.py` failed inside the generated localhost audit, so the HTML report remains strong on crawl, metadata, and link structure but not a deploy-time Core Web Vitals read.
+- `blog/app-screenshots-for-app-store-2026.html`
+- `blog/app-store-screenshot-sizes-2026.html`
+- `mac-screenshot-editor/index.html`
+- `privacy.html`
+- `redact-screenshots-mac/index.html`
+- `screenshot-annotation-tool-mac/index.html`
+- `screenshot-backgrounds-mac/index.html`
+- Crawl-file changes: `llm.txt`, `llms-full.txt`, `llms.txt`, `sitemap.xml`
+- Funnel/instrumentation changes: `analytics-events.js`, `growth-pages.css`
 
-## Funnel Status
+## Strategy
 
-- On-site funnel events remain wired for:
-  - `open_guide`
-  - `view_pricing`
-  - `begin_checkout`
-  - `download_installer`
-  - `generate_lead`
-- The new Snagit page is included in `GUIDE_PATHS`, so homepage and related-page clicks into it will register as `open_guide`.
-- Purchase attribution remains unresolved because checkout completes off-domain and no Lemon Squeezy-side order data is currently available in this workspace.
+- Deep audit status: `on`.
+- Deep-audit reason: A major batch of content or growth pages is shipping in this run.
+- Deep-audit reason: Technical findings conflicted with the prior content strategy.
+- Deep-audit reason: Two or more content pages changed in the current run.
+- Deep-audit reason: Homepage traffic concentration remains high while Search Console visibility is still partially blind.
+- Strategy shift: Stopped waiting for guide impressions before expanding. This run restores live App Store demand already hitting missing URLs, adds entity schema, and shifts the homepage from guide-only distribution to guides plus resource capture.
 
 ## Blockers
 
-- GA4 access remains blocked by missing OAuth scopes in the current local Google auth session.
-- Search Console access remains blocked by missing OAuth scopes in the current local Google auth session.
-- Checkout purchase data is still unavailable locally, so the funnel stops at `begin_checkout` unless Lemon Squeezy data is exposed elsewhere.
+- Search Console refresh is blocked until this service account has access to a verified Search Console property.
+- Checkout revenue remains partially blind because Lemon Squeezy API credentials are not available in the environment.
+- PageSpeed evidence is incomplete for this run: Rate limited by Google API. Wait a few minutes or add an API key.
 
 ## Next Bets
 
-1. Restore GA4 and Search Console scopes, or provide a service-account/API path, so the next run can judge real 14-day movement instead of another blind content bet.
-2. Watch whether the new docs-heavy comparison branch earns the first impression signal after deploy:
-   - `pixera-vs-snagit`
-   - `pixera-vs-cleanshot-x`
-   - `pixera-vs-shottr`
-3. If documentation-heavy comparison pages surface first, expand with a sibling buyer-entry page around the same branch instead of another generic feature page.
-4. Proposed prompt/strategy upgrade for human approval: after three consecutive `ACCESS_TOKEN_SCOPE_INSUFFICIENT` failures, let the automation log the failed refresh once and shift the saved time into content and internal-link work until credentials change, while keeping the reporting and validation guardrails intact.
+1. Deploy the current content and crawl-file batch so GA4 can start distributing traffic beyond the homepage.
+2. Grant this service account Search Console access or verify the domain property so impressions, clicks, and CTR can be refreshed directly.
+3. Add Lemon Squeezy purchase tracking or API credentials so `begin_checkout` can be tied to actual revenue.

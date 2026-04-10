@@ -757,6 +757,231 @@
   transform: translateX(3px);
 }
 
+.workflow-guides-grid-resources {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.workflow-resource-card {
+  background:
+    radial-gradient(circle at top right, rgba(14, 165, 233, 0.12), transparent 35%),
+    linear-gradient(180deg, #ffffff 0%, #eff6ff 100%);
+}
+
+.article-page {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  color: #0f172a;
+}
+
+.article-shell {
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.article-hero {
+  padding: 0.5rem 0 3rem;
+}
+
+.article-hero-grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.article-copy {
+  max-width: 44rem;
+}
+
+.article-kicker {
+  color: #0891b2;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.article-title {
+  margin-top: 1rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 6vw, 4.8rem);
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+  color: #0f172a;
+}
+
+.article-dek {
+  margin-top: 1.25rem;
+  font-size: 1.12rem;
+  line-height: 1.8;
+  color: #475569;
+}
+
+.article-meta {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  font-size: 0.95rem;
+  color: #64748b;
+}
+
+.article-actions {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.article-highlight {
+  border-radius: 1.75rem;
+  border: 1px solid rgba(56, 189, 248, 0.24);
+  background:
+    radial-gradient(circle at top right, rgba(34, 211, 238, 0.16), transparent 42%),
+    linear-gradient(180deg, #0f172a 0%, #162033 100%);
+  padding: 1.8rem;
+  color: #e2e8f0;
+  box-shadow: 0 26px 56px rgba(15, 23, 42, 0.14);
+}
+
+.article-highlight h2,
+.article-highlight h3 {
+  color: #ffffff;
+}
+
+.article-highlight p,
+.article-highlight li {
+  color: #cbd5e1;
+}
+
+.article-highlight .feature-list li::before {
+  background: linear-gradient(90deg, #67e8f9, #93c5fd);
+}
+
+.article-section {
+  padding: 3rem 0 0;
+}
+
+.article-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.article-prose,
+.article-card,
+.article-note,
+.article-table-wrap,
+.legal-card {
+  border-radius: 1.5rem;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 20px 44px rgba(15, 23, 42, 0.07);
+}
+
+.article-prose,
+.article-card,
+.article-note,
+.legal-card {
+  padding: 1.75rem;
+}
+
+.article-prose h2,
+.article-card h3,
+.legal-card h2 {
+  font-family: var(--font-display);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  color: #0f172a;
+}
+
+.article-prose h2 {
+  font-size: clamp(2rem, 3vw, 2.8rem);
+}
+
+.article-prose h3,
+.article-card h3 {
+  font-size: 1.35rem;
+}
+
+.article-prose p,
+.article-prose li,
+.article-card p,
+.legal-card p,
+.legal-card li {
+  color: #475569;
+  line-height: 1.8;
+}
+
+.article-prose p + p,
+.article-prose ul,
+.article-prose ol,
+.article-card p + p,
+.legal-card p + p,
+.legal-card ul {
+  margin-top: 1rem;
+}
+
+.article-list {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 1rem;
+  padding-left: 1.1rem;
+}
+
+.article-note {
+  background:
+    radial-gradient(circle at top left, rgba(14, 165, 233, 0.12), transparent 36%),
+    linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+}
+
+.article-note strong,
+.article-prose strong,
+.legal-card strong {
+  color: #0f172a;
+}
+
+.article-table-wrap {
+  overflow: hidden;
+}
+
+.article-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.article-table th,
+.article-table td {
+  padding: 0.95rem 1rem;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+  text-align: left;
+}
+
+.article-table th {
+  background: #eff6ff;
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.article-table td {
+  color: #475569;
+}
+
+.article-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.article-related-grid {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.legal-grid {
+  display: grid;
+  gap: 1.5rem;
+  padding: 0.5rem 0 3rem;
+}
+
 @media (min-width: 768px) {
   .workflow-guides-shell {
     padding: 0 1.5rem;
@@ -765,10 +990,38 @@
   .workflow-guides-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .workflow-guides-grid-resources,
+  .article-related-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .article-shell {
+    padding: 0 1.5rem;
+  }
+
+  .article-actions {
+    flex-direction: row;
+    align-items: center;
+  }
 }
 
 @media (min-width: 1280px) {
   .workflow-guides-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .article-shell {
+    padding: 0 2rem;
+  }
+
+  .article-hero-grid {
+    grid-template-columns: minmax(0, 1.15fr) minmax(20rem, 0.85fr);
+    align-items: start;
+  }
+
+  .article-grid {
+    grid-template-columns: minmax(0, 1.35fr) minmax(19rem, 0.65fr);
+    align-items: start;
   }
 }
